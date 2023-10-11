@@ -7,7 +7,7 @@ export default async function BaseComponent({
   children: React.ReactNode;
 }) {
   return (
-    <div className="">
+    <div className="w-[95%] mx-auto">
       <Navbar />
       {children}
     </div>
