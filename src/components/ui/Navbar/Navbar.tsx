@@ -43,7 +43,7 @@ export default () => {
               alt="brand logo"
             />
             <p
-              className={`font-semibold text-2xl ml-1  text-transparent bg-clip-text bg-gradient-to-r from-[#13a0ef] to-[#97ce00]`}
+              className={`font-semibold text-2xl ml-1  text-transparent bg-clip-text bg-gradient-to-r from-[#13a0ef] to-[#c7ec01]`}
             >
               napSaga
             </p>
@@ -116,9 +116,9 @@ export default () => {
             </Link>
             <Link
               href="/auth/register"
-              className="flex items-center justify-center gap-x-1 py-2 px-4 text-white font-semibold bg-gradient-to-r from-[#13a0ef] to-[#8bbd04] rounded-full md:inline-flex"
+              className="flex items-center justify-center gap-x-1 py-2 px-4 text-white font-semibold bg-gradient-to-r from-[#13a0ef] to-[#c7ec01] rounded-full md:inline-flex"
             >
-              Sign in
+              Sign up
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 20 20"

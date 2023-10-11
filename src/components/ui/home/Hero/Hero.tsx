@@ -19,7 +19,7 @@ const Hero = () => {
               </span>
               <br />
               <span
-                className={`text-transparent my-5 p-3 bg-clip-text bg-gradient-to-r to-[#97ce00] from-[#13a0ef] via-[#13a0ef]`}
+                className={`text-transparent my-5 p-3 bg-clip-text bg-gradient-to-r to-[#c7ec01] from-[#13a0ef] via-[#13a0ef]`}
               >
                 Where Every Click Tells a Tale
               </span>
