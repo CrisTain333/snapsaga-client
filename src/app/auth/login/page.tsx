@@ -89,12 +89,12 @@ const page = () => {
                 </h3>
                 <p className="">
                   Don't have an account?{" "}
-                  <a
-                    href="javascript:void(0)"
+                  <Link
+                    href="/auth/register"
                     className="font-medium text-indigo-600 hover:text-indigo-500"
                   >
                     Sign Up
-                  </a>
+                  </Link>
                 </p>
               </div>
             </div>
