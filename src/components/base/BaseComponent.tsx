@@ -1,6 +1,7 @@
 import React, { Suspense } from "react";
 import Navbar from "../ui/Navbar/Navbar";
 import Footer from "../ui/Footer/Footer";
+import CustomProvider from "@/providers/CustomProvider";
 
 export default async function BaseComponent({
   children,
@@ -10,10 +11,12 @@ export default async function BaseComponent({
   showNavbar?: boolean;
 }) {
   return (
-    <div className="w-[95%] mx-auto">
-      {showNavbar && <Navbar />}
-      {children}
-      <Footer />
-    </div>
+    <CustomProvider>
+      <div className="w-[95%] mx-auto">
+        {showNavbar && <Navbar />}
+        {children}
+        <Footer />
+      </div>
+    </CustomProvider>
   );
 }

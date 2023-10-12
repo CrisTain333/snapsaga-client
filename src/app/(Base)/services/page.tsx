@@ -1,6 +1,6 @@
 import FilterSection from "@/components/filter/FilterSection/FilterSection";
 import ServiceCard from "@/components/ui/ServiceCard/ServiceCard";
-import React, { useState } from "react";
+import React from "react";
 
 const page = () => {
   const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9];
