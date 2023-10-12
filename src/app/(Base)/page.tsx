@@ -6,6 +6,7 @@ import ServiceSection from "@/components/ui/home/ServiceSection/ServiceSection";
 import CategorySection from "@/components/ui/home/CategorySection/CategorySection";
 import SurveySection from "@/components/ui/home/SurveySection.tsx/SurveySection";
 import Testimonials from "@/components/ui/home/Testimonials.tsx/Testimonials";
+import NewsSection from "@/components/ui/home/NewsSection/NewsSection";
 
 const Home = () => {
   return (
@@ -15,6 +16,7 @@ const Home = () => {
       <CategorySection />
       <SurveySection />
       <Testimonials />
+      <NewsSection />
     </div>
   );
 };
