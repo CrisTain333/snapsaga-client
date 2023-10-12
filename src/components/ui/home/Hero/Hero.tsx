@@ -2,7 +2,6 @@ import { style } from "@/constants/colors";
 import React from "react";
 
 const Hero = () => {
-  console.log(style.secondary_color);
   return (
     <div>
       <section className="relative">
