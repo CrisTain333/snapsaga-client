@@ -3,12 +3,14 @@ import Navbar from "../ui/Navbar/Navbar";
 
 export default async function BaseComponent({
   children,
+  showNavbar = true,
 }: {
   children: React.ReactNode;
+  showNavbar?: boolean;
 }) {
   return (
     <div className="w-[95%] mx-auto">
-      <Navbar />
+      {showNavbar && <Navbar />}
       {children}
     </div>
   );
