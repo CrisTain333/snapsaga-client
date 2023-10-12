@@ -1,5 +1,8 @@
 "use client";
+import Image from "next/image";
+import Link from "next/link";
 import React from "react";
+import logo from "../../../assets/icons/logo.png";
 
 const Footer = () => {
   const footerNavs = [
@@ -33,10 +36,21 @@ const Footer = () => {
   return (
     <footer className="text-gray-500 bg-white px-4 py-5 max-w-screen-xl mx-auto md:px-8">
       <div className="max-w-lg sm:mx-auto sm:text-center">
-        <img
-          src="https://www.floatui.com/logo.svg"
-          className="w-32 sm:mx-auto"
-        />
+        <Link
+          href="/"
+          className="flex items-center justify-center"
+        >
+          <Image
+            src={logo}
+            width={30}
+            alt="brand logo"
+          />
+          <p
+            className={`font-semibold text-2xl ml-1  text-transparent bg-clip-text bg-gradient-to-r from-[#13a0ef] to-[#c7ec01]`}
+          >
+            napSaga
+          </p>
+        </Link>
         <p className="leading-relaxed mt-2 text-[15px]">
           Lorem Ipsum has been the industry's standard dummy
           text ever since the 1500s, when an unknown printer
@@ -58,7 +72,7 @@ const Footer = () => {
       </ul>
       <div className="mt-8 items-center justify-between sm:flex">
         <div className="mt-4 sm:mt-0">
-          &copy; 2022 Float UI All rights reserved.
+          &copy; 2023 All rights reserved.
         </div>
         <div className="mt-6 sm:mt-0">
           <ul className="flex items-center space-x-4">

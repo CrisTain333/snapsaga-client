@@ -3,12 +3,10 @@ import { useEffect, useState } from "react";
 import logo from "../../../assets/icons/logo.png";
 import Image from "next/image";
 import Link from "next/link";
-import { style } from "@/constants/colors";
 
 export default () => {
   const [state, setState] = useState(false);
 
-  // Replace javascript:void(0) paths with your paths
   const navigation = [
     { title: "Services", path: "/services" },
   ];
