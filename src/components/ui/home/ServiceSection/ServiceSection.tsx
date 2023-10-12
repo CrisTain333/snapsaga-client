@@ -133,9 +133,8 @@ const ServiceSection = () => {
               Our Photography Services
             </h3>
             <p className="mt-3">
-              Lorem ipsum dolor sit amet, consectetur
-              adipiscing elit. Donec congue, nisl eget
-              molestie varius, enim ex faucibus purus.
+              Our rewards in life will always be in direct
+              ratio to our service.
             </p>
           </div>
           <div
