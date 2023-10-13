@@ -2,8 +2,33 @@
 import React from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { useRegisterUserMutation } from "@/redux/feature/user/userApi";
+import { Router } from "next/router";
+import SmallLoader from "@/components/Loader/SmallLoader";
 
 const page = () => {
+  const [registerUser, { isLoading }] =
+    useRegisterUserMutation();
+
+  const test = true;
+
+  const handleSubmit = (event: any) => {
+    event.preventDefault();
+
+    const form = event.target;
+    const name = form.name.value;
+    const email = form.email.value;
+    const password = form.password.value;
+
+    const data = {
+      name,
+      email,
+      password,
+    };
+
+    console.log(data);
+  };
+
   return (
     <div>
       {" "}
@@ -27,7 +52,7 @@ const page = () => {
           </div>
           <div className="bg-white  shadow p-4 py-6 sm:p-6 sm:rounded-lg">
             <form
-              onSubmit={(e) => e.preventDefault()}
+              onSubmit={handleSubmit}
               className="space-y-5"
             >
               <div>
@@ -35,6 +60,7 @@ const page = () => {
                 <input
                   type="text"
                   required
+                  name="name"
                   className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
                 />
               </div>
@@ -43,6 +69,7 @@ const page = () => {
                 <input
                   type="email"
                   required
+                  name="email"
                   className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
                 />
               </div>
@@ -51,13 +78,29 @@ const page = () => {
                   Password
                 </label>
                 <input
+                  name="password"
                   type="password"
                   required
                   className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
                 />
               </div>
-              <Button className="w-full px-4 py-2 text-white font-medium bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-600 rounded-lg duration-150">
-                Create account
+              <Button
+                type="submit"
+                className={`w-full px-4 py-2 text-white font-medium  rounded-md duration-150 ${
+                  test
+                    ? "bg-indigo-500 cursor-not-allowed"
+                    : "bg-indigo-600 cursor-pointer"
+                }`}
+                disabled={test}
+              >
+                {test ? (
+                  <SmallLoader
+                    size="35"
+                    color="white"
+                  />
+                ) : (
+                  <>Create account </>
+                )}
               </Button>
             </form>
           </div>
