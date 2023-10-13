@@ -11,10 +11,40 @@ import {
   Avatar,
   AvatarImage,
 } from "@/components/ui/avatar";
+import {
+  Cloud,
+  CreditCard,
+  Github,
+  Keyboard,
+  LifeBuoy,
+  LogOut,
+  Mail,
+  MessageSquare,
+  Plus,
+  PlusCircle,
+  Settings,
+  User,
+  UserPlus,
+  Users,
+} from "lucide-react";
+
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuPortal,
+  DropdownMenuSeparator,
+  DropdownMenuShortcut,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 import { Button } from "@/components/ui/button";
 import { logout } from "@/redux/feature/user/userSlice";
-import { LogOut } from "lucide-react";
 
 export default () => {
   const [state, setState] = useState(false);
@@ -116,7 +146,7 @@ export default () => {
               );
             })}
           </ul>
-          <div className="flex-1 gap-x-6 items-center justify-end mt-6 space-y-6 md:flex md:space-y-0 md:mt-0">
+          <div className="flex-1 gap-x-5 items-center justify-end mt-6 space-y-6 md:flex md:space-y-0 md:mt-0">
             {!user ? (
               <>
                 <Link
@@ -146,17 +176,34 @@ export default () => {
               </>
             ) : (
               <>
-                <Avatar>
-                  <AvatarImage src={user?.profileImage} />
-                </Avatar>
-
-                <Button
-                  className="flex items-center justify-center gap-x-1 py-2 px-4 text-white font-semibold bg-gradient-to-r from-[#13a0ef] to-[#c7ec01] rounded md:inline-flex"
-                  onClick={() => dispatch(logout())}
-                >
-                  Logout
-                  <LogOut />
-                </Button>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Avatar className="cursor-pointer">
+                      <AvatarImage
+                        src={user?.profileImage}
+                      />
+                    </Avatar>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent className="w-56">
+                    <DropdownMenuLabel>
+                      My Account
+                    </DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuGroup>
+                      <DropdownMenuItem>
+                        <User className="mr-2 h-4 w-4" />
+                        <span>Profile</span>
+                      </DropdownMenuItem>
+                    </DropdownMenuGroup>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem
+                      onClick={() => dispatch(logout())}
+                    >
+                      <LogOut className="mr-2 h-4 w-4" />
+                      <span>Log out</span>
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
               </>
             )}
           </div>
