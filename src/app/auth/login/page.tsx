@@ -7,7 +7,10 @@ import { Button } from "@/components/ui/button";
 import { useLoginUserMutation } from "@/redux/feature/user/userApi";
 import Loader from "@/components/Loader/Loader";
 import { useAppDispatch } from "@/redux/hooks";
-import { useRouter } from "next/navigation";
+import {
+  useRouter,
+  useSearchParams,
+} from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
 import {
   getUser,
@@ -20,6 +23,9 @@ const page = () => {
   const { toast } = useToast();
   const router = useRouter();
   const [loginUser, { isLoading }] = useLoginUserMutation();
+  // const searchParams = useSearchParams();
+
+  const redirectTo = "/";
 
   const handleSubmit = async (event: any) => {
     event.preventDefault();
@@ -41,7 +47,7 @@ const page = () => {
       });
       dispatch(setToken(responseData?.data?.token));
       await dispatch(getUser());
-      router.push("/");
+      router.push(redirectTo);
     } else {
       toast({
         variant: "destructive",
@@ -139,11 +145,6 @@ const page = () => {
         <div className="flex-1 flex items-center justify-center h-screen">
           <div className="w-full max-w-md space-y-8 px-4 bg-white text-gray-600 sm:px-0">
             <div className="">
-              <img
-                src="https://floatui.com/logo.svg"
-                width={150}
-                className="lg:hidden"
-              />
               <div className="mt-5 space-y-2">
                 <h3 className="text-gray-800 text-2xl font-bold sm:text-3xl">
                   Log in

@@ -9,15 +9,17 @@ export default async function BaseComponent({
   children,
   showNavbar = true,
   showFooter = true,
+  className = "w-[95%] mx-auto",
 }: {
   children: React.ReactNode;
   showNavbar?: boolean;
   showFooter?: boolean;
+  className?: string;
 }) {
   return (
     <CustomProvider>
       <Toaster />
-      <div className="w-[95%] mx-auto">
+      <div className={className}>
         {showNavbar && <Navbar />}
         {children}
         {showFooter && <Footer />}
