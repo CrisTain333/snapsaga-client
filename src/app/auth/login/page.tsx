@@ -4,8 +4,23 @@ import React, { useEffect } from "react";
 import logo from "../../../assets/icons/logo.png";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { useLoginUserMutation } from "@/redux/feature/user/userApi";
+import Loader from "@/components/Loader/Loader";
+import { useAppDispatch } from "@/redux/hooks";
+import { useRouter } from "next/navigation";
+import { useToast } from "@/components/ui/use-toast";
+import {
+  getUser,
+  setToken,
+} from "@/redux/feature/user/userSlice";
+import { ToastAction } from "@radix-ui/react-toast";
 
 const page = () => {
+  const dispatch = useAppDispatch();
+  const { toast } = useToast();
+  const router = useRouter();
+  const [loginUser, { isLoading }] = useLoginUserMutation();
+
   const handleSubmit = async (event: any) => {
     event.preventDefault();
 
@@ -17,7 +32,31 @@ const page = () => {
       email,
       password,
     };
-    console.log(data);
+    const response: any = await loginUser(data);
+    const { data: responseData, error } = response;
+
+    if (responseData?.statusCode === 200) {
+      toast({
+        title: responseData?.message,
+      });
+      dispatch(setToken(responseData?.data?.token));
+      await dispatch(getUser());
+      router.push("/");
+    } else {
+      toast({
+        variant: "destructive",
+        duration: 2500,
+        title: error?.data?.message,
+        action: (
+          <ToastAction
+            altText="Try again"
+            onClick={() => form.reset()}
+          >
+            Try again
+          </ToastAction>
+        ),
+      });
+    }
   };
 
   return (
@@ -141,12 +180,24 @@ const page = () => {
                 <input
                   type="password"
                   name="password"
+                  autoComplete="true"
                   required
                   className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
                 />
               </div>
-              <Button className="w-full px-4 py-2 text-white font-medium bg-gradient-to-r from-[#13a0ef] to-[#97ce00] rounded-lg duration-150">
-                Log in
+              <Button
+                className="w-full px-4 py-2 text-white font-medium bg-gradient-to-r from-[#13a0ef] to-[#97ce00] rounded-lg duration-150"
+                // disable={isLoading}
+                disabled={isLoading}
+              >
+                {isLoading ? (
+                  <Loader
+                    size="32"
+                    color="white"
+                  />
+                ) : (
+                  <>Log in </>
+                )}
               </Button>
             </form>
           </div>

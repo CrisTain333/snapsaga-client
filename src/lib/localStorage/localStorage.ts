@@ -12,5 +12,6 @@ export const getFromLocalStorage = (key: string) => {
   if (!key || typeof window === "undefined") {
     return "";
   }
+  console.log("hello from get Token LocalStorage");
   return localStorage.getItem(key);
 };

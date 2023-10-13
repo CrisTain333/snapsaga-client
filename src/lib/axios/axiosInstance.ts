@@ -1,3 +1,4 @@
+"use client";
 import { authKey } from "@/constants/storageKey";
 import {
   IGenericErrorResponse,
@@ -19,6 +20,7 @@ instance.interceptors.request.use(
   function (config) {
     // Do something before request is sent
     const accessToken = getFromLocalStorage(authKey);
+    console.log(accessToken);
     if (accessToken) {
       config.headers.Authorization = accessToken;
     }

@@ -10,6 +10,7 @@ import {
 import { getUserProfile } from "@/lib/api";
 import { IInitialState } from "@/types";
 import { authKey } from "@/constants/storageKey";
+import { getFromLocalStorage } from "@/lib/localStorage/localStorage";
 
 export const getUser = createAsyncThunk(
   "auth/getUser",
@@ -21,7 +22,7 @@ export const getUser = createAsyncThunk(
 
 const initialState: IInitialState = {
   user: null,
-  token: localStorage.getItem(authKey) || "",
+  token: getFromLocalStorage(authKey) as string,
   isLoading: false,
   error: false,
   errorMessage: "",

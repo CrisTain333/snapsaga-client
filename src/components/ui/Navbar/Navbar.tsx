@@ -3,9 +3,22 @@ import { useEffect, useState } from "react";
 import logo from "../../../assets/icons/logo.png";
 import Image from "next/image";
 import Link from "next/link";
+import {
+  useAppSelector,
+  useAppDispatch,
+} from "@/redux/hooks";
+import {
+  Avatar,
+  AvatarImage,
+} from "@/components/ui/avatar";
+
+import { Button } from "@/components/ui/button";
+import { logout } from "@/redux/feature/user/userSlice";
 
 export default () => {
   const [state, setState] = useState(false);
+  const { user } = useAppSelector((state) => state.auth);
+  const dispatch = useAppDispatch();
 
   const navigation = [
     { title: "Services", path: "/services" },
@@ -103,30 +116,59 @@ export default () => {
             })}
           </ul>
           <div className="flex-1 gap-x-6 items-center justify-end mt-6 space-y-6 md:flex md:space-y-0 md:mt-0">
-            <Link
-              href="/auth/login"
-              className="block font-semibold"
-            >
-              Log in
-            </Link>
-            <Link
-              href="/auth/register"
-              className="flex items-center justify-center gap-x-1 py-2 px-4 text-white font-semibold bg-gradient-to-r from-[#13a0ef] to-[#c7ec01] rounded-full md:inline-flex"
-            >
-              Sign up
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-                className="w-5 h-5"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            </Link>
+            {!user ? (
+              <>
+                <Link
+                  href="/auth/login"
+                  className="block font-semibold"
+                >
+                  Log in
+                </Link>
+                <Link
+                  href="/auth/register"
+                  className="flex items-center justify-center gap-x-1 py-2 px-4 text-white font-semibold bg-gradient-to-r from-[#13a0ef] to-[#c7ec01] rounded-full md:inline-flex"
+                >
+                  Sign up
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    className="w-5 h-5"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </Link>
+              </>
+            ) : (
+              <>
+                <Avatar>
+                  <AvatarImage src={user?.profileImage} />
+                </Avatar>
+
+                <Button
+                  className="flex items-center justify-center gap-x-1 py-2 px-4 text-white font-semibold bg-gradient-to-r from-[#13a0ef] to-[#c7ec01] rounded md:inline-flex"
+                  onClick={() => dispatch(logout())}
+                >
+                  Logout
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    className="w-5 h-5"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </Button>
+              </>
+            )}
           </div>
         </div>
       </div>

@@ -38,7 +38,6 @@ const page = () => {
       });
       router.push("/auth/login");
     }
-    console.log(error);
     if (error?.status === 400) {
       toast({
         variant: "destructive",
