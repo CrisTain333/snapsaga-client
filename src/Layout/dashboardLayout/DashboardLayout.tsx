@@ -24,13 +24,15 @@ const DashboardLayout = ({ children }: any) => {
   }, [user, isLoading]);
 
   return (
-    <div className="grid grid-cols-12">
-      <div className="col-span-3">
-        <div className="w-[50px] md:w-[225px] sticky md:mt-0 mt-[18%]">
-          <DashboardSidebar />
+    <div className="w-[95%] mx-auto">
+      <div className="grid grid-cols-12">
+        <div className="col-span-3">
+          <div className="w-[50px] md:w-[225px] sticky md:mt-0 mt-[18%]">
+            <DashboardSidebar />
+          </div>
         </div>
+        <div className="col-span-9">{children}</div>
       </div>
-      <div className="col-span-9">{children}</div>
     </div>
   );
 };

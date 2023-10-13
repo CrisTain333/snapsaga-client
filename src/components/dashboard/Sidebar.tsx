@@ -19,14 +19,28 @@ const DashboardSidebar = () => {
           className="flex items-center cursor-pointer w-full mb-8"
           // onClick={() => setActive(1)}
         >
-          <UserCircle2 size={20} />
-          <span
-            className={`pl-3 
+          <Link href="/dashboard">
+            <LayoutDashboard size={20} />
+            <span
+              className={`pl-3 
               text-[black]
              md:block hidden`}
-          >
-            Profile
-          </span>
+            >
+              Dashboard
+            </span>
+          </Link>
+        </div>
+        <div className="flex items-center cursor-pointer w-full mb-8">
+          <Link href="/dashboard/profile">
+            <UserCircle2 size={20} />
+            <span
+              className={`pl-3 
+              text-[black]
+             md:block hidden`}
+            >
+              Profile
+            </span>
+          </Link>
         </div>
         <div className="flex items-center cursor-pointer w-full mb-8">
           <BookUp2
