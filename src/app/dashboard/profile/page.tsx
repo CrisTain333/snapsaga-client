@@ -1,11 +1,19 @@
 "use client";
-import { useAppSelector } from "@/redux/hooks";
+import { ToastAction } from "@/components/ui/toast";
+import { useToast } from "@/components/ui/use-toast";
+import { useUpdateProfilePictureMutation } from "@/redux/feature/user/userApi";
+import { getUser } from "@/redux/feature/user/userSlice";
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "@/redux/hooks";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 
 const page = () => {
   const { user } = useAppSelector((state) => state.auth);
-
+  const { toast } = useToast();
+  const dispatch = useAppDispatch();
   const [selectedImage, setSelectedImage] =
     useState<any>(null);
   const [uploadLoader, setUploadLoader] = useState(false);
@@ -16,6 +24,9 @@ const page = () => {
     profileImage: user?.profileImage,
     location: user?.location,
   });
+
+  const [updateProfilePicture] =
+    useUpdateProfilePictureMutation();
 
   useEffect(() => {
     setUserProfileData({
@@ -64,22 +75,40 @@ const page = () => {
     setUploadLoader(true);
     const newForm = new FormData();
     newForm.append("profilePicture", selectedImage);
-    // try {
-    //   const result = await updateProfilePicture(
-    //     newForm,
-    //     currentUser?._id
-    //   );
-    //   if (result?.status === 200) {
-    //     toast.success("Profile Picture Updated");
-    //     handleCancel();
-    //     setUploadLoader(false);
-    //     refetch();
-    //   }
-    //   setUploadLoader(false);
-    // } catch (error) {
-    //   setUploadLoader(false);
-    //   toast.error("Fail To update Profile Picture");
-    // }
+    try {
+      const response = await updateProfilePicture(newForm);
+
+      const { data: responseData, error } = response;
+
+      if (responseData?.statusCode === 200) {
+        toast({
+          title: responseData?.message,
+        });
+        handleCancel();
+        await dispatch(getUser());
+        setUploadLoader(false);
+      } else {
+        toast({
+          variant: "destructive",
+          duration: 2500,
+          title: error?.data?.message,
+          action: (
+            <ToastAction
+              altText="Try again"
+              // onClick={() => form.reset()}
+            >
+              Try again
+            </ToastAction>
+          ),
+        });
+      }
+
+      setUploadLoader(false);
+    } catch (error) {
+      setUploadLoader(false);
+      console.log(error);
+      // toast.error("Fail To update Profile Picture");
+    }
   };
 
   return (
