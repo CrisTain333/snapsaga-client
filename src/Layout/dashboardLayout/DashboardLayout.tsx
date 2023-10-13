@@ -17,7 +17,7 @@ const DashboardLayout = ({ children }: any) => {
 
   React.useEffect(() => {
     if (isLoading === false) {
-      if (user === null) {
+      if (user === null && !token) {
         router.push("/auth/login?redirectTo=/dashboard");
       }
     }

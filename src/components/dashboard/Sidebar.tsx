@@ -15,11 +15,8 @@ const DashboardSidebar = () => {
   return (
     <div>
       <div className="w-full bg-white text-black rounded-[10px] p-4 pt-8 shadow-md">
-        <div
-          className="flex items-center cursor-pointer w-full mb-8"
-          // onClick={() => setActive(1)}
-        >
-          <Link href="/dashboard">
+        <Link href="/dashboard">
+          <div className="flex items-center cursor-pointer w-full mb-8">
             <LayoutDashboard size={20} />
             <span
               className={`pl-3 
@@ -28,10 +25,10 @@ const DashboardSidebar = () => {
             >
               Dashboard
             </span>
-          </Link>
-        </div>
-        <div className="flex items-center cursor-pointer w-full mb-8">
-          <Link href="/dashboard/profile">
+          </div>
+        </Link>
+        <Link href="/dashboard/profile">
+          <div className="flex items-center cursor-pointer w-full mb-8">
             <UserCircle2 size={20} />
             <span
               className={`pl-3 
@@ -40,8 +37,8 @@ const DashboardSidebar = () => {
             >
               Profile
             </span>
-          </Link>
-        </div>
+          </div>
+        </Link>
         <div className="flex items-center cursor-pointer w-full mb-8">
           <BookUp2
             size={20}
