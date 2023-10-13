@@ -4,15 +4,19 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { useRegisterUserMutation } from "@/redux/feature/user/userApi";
 import { Router } from "next/router";
-import SmallLoader from "@/components/Loader/SmallLoader";
+import Loader from "@/components/Loader/Loader";
+import { useRouter } from "next/navigation";
+import { useToast } from "@/components/ui/use-toast";
+import { ToastAction } from "@/components/ui/toast";
 
 const page = () => {
   const [registerUser, { isLoading }] =
     useRegisterUserMutation();
+  const router = useRouter();
+  const { toast } = useToast();
+  // const test = true;
 
-  const test = true;
-
-  const handleSubmit = (event: any) => {
+  const handleSubmit = async (event: any) => {
     event.preventDefault();
 
     const form = event.target;
@@ -26,7 +30,30 @@ const page = () => {
       password,
     };
 
-    console.log(data);
+    const result: any = await registerUser(data);
+    const { data: responseData, error } = result;
+    if (responseData?.statusCode === 200) {
+      toast({
+        title: responseData?.message,
+      });
+      router.push("/auth/login");
+    }
+    console.log(error);
+    if (error?.status === 400) {
+      toast({
+        variant: "destructive",
+        duration: 2500,
+        title: error?.data?.message,
+        action: (
+          <ToastAction
+            altText="Try again"
+            onClick={() => form.reset()}
+          >
+            Try again
+          </ToastAction>
+        ),
+      });
+    }
   };
 
   return (
@@ -87,15 +114,15 @@ const page = () => {
               <Button
                 type="submit"
                 className={`w-full px-4 py-2 text-white font-medium  rounded-md duration-150 ${
-                  test
+                  isLoading
                     ? "bg-indigo-500 cursor-not-allowed"
                     : "bg-indigo-600 cursor-pointer"
                 }`}
-                disabled={test}
+                disabled={isLoading}
               >
-                {test ? (
-                  <SmallLoader
-                    size="35"
+                {isLoading ? (
+                  <Loader
+                    size="32"
                     color="white"
                   />
                 ) : (

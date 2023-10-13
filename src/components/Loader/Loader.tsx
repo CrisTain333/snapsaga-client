@@ -1,7 +1,7 @@
 import React from "react";
 import { RotatingLines } from "react-loader-spinner";
 
-const SmallLoader = ({
+const Loader = ({
   size,
   color,
 }: {
@@ -21,4 +21,4 @@ const SmallLoader = ({
   );
 };
 
-export default SmallLoader;
+export default Loader;

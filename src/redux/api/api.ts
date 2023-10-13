@@ -14,7 +14,7 @@ export const api: any = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.NEXT_PUBLIC_BACKEND_API,
     prepareHeaders: (headers, { getState }: any) => {
-      const token = (getState() as RootState).auth.token;
+      const token = (getState() as RootState)?.auth?.token;
       headers.set("authorization", token as string);
       return headers;
     },

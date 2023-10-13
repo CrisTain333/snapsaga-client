@@ -1,8 +1,9 @@
 import axiosInstance from "../axios";
+import { instance } from "../axios/axiosInstance";
 
 export const getUserProfile = async (token: string) => {
   try {
-    const response = await axiosInstance.get(`/auth/me`, {
+    const response = await instance.get(`/auth/me`, {
       headers: { authorization: `${token}` },
     });
     return response?.data;

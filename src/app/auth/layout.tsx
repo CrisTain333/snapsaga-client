@@ -15,7 +15,10 @@ export default function RootLayout({
 }) {
   return (
     <>
-      <BaseComponent showNavbar={false}>
+      <BaseComponent
+        showNavbar={false}
+        showFooter={false}
+      >
         {children}
       </BaseComponent>
     </>
