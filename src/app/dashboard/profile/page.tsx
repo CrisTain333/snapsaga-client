@@ -98,7 +98,7 @@ const page = () => {
                         : userProfileData?.profileImage
                     }
                     // src={`${currentUser?.profilePicture || ''}`}
-                    className="w-32 h-32 rounded-full object-cover border-[3px] border-[#ff9900]"
+                    className="w-32 h-32 rounded-full object-cover border-[3px] border-[#97ce00]"
                     alt="profilePicture"
                     height={500}
                     width={500}
@@ -124,7 +124,7 @@ const page = () => {
                       className={` text-white  text-sm font-semibold px-4 py-2 rounded w-auto cursor-pointer flex items-center ${
                         uploadLoader
                           ? "cursor-not-allowed bg-gray-300"
-                          : "bg-[#ff9900]"
+                          : "bg-gradient-to-r from-[#13a0ef] to-[#c7ec01]"
                       }`}
                       disabled={uploadLoader}
                       onClick={changeProfilePicture}
@@ -154,7 +154,7 @@ const page = () => {
                   ) : (
                     <label
                       htmlFor="profile"
-                      className="bg-[#ff9900] text-white  text-sm font-semibold px-4 py-2 rounded w-auto cursor-pointer"
+                      className="bg-gradient-to-r from-[#13a0ef] to-[#c7ec01] text-white  text-sm font-semibold px-4 py-2 rounded w-auto cursor-pointer"
                       // onClick={handleProfileUpdate}
                     >
                       Change Profile
@@ -181,7 +181,7 @@ const page = () => {
                     </label>
                     <input
                       type="text"
-                      className={`!w-[95%] mb-4 md:mb-0`}
+                      className={` border p-2 rounded-md !w-[95%] mb-4 md:mb-0`}
                       required
                       name="name"
                       defaultValue={user?.name}
@@ -200,7 +200,7 @@ const page = () => {
                     </label>
                     <input
                       type="text"
-                      className={` !w-[95%] mb-1 md:mb-0 cursor-not-allowed`}
+                      className={` border p-2 rounded-md !w-[95%] mb-1 md:mb-0 cursor-not-allowed`}
                       required
                       readOnly
                       name="email"
@@ -217,12 +217,12 @@ const page = () => {
 
                 <div className="w-full md:flex block pb-3">
                   <div className=" w-[100%] md:w-[50%]">
-                    <label className="block pb-2">
+                    <label className=" block pb-2">
                       Phone Number
                     </label>
                     <input
                       type="number"
-                      className={` !w-[95%] mb-4 md:mb-0`}
+                      className={` border p-2 rounded-md !w-[95%] mb-4 md:mb-0`}
                       required
                       name="phone"
                       defaultValue={user?.phone}
@@ -237,13 +237,13 @@ const page = () => {
 
                   <div className=" w-[100%] md:w-[50%]">
                     <label className="block pb-2">
-                      Enter your password
+                      Location
                     </label>
                     <input
-                      type="password"
-                      className={` !w-[95%] mb-4 800px:mb-0`}
+                      type="text"
+                      className={` border p-2 rounded-md !w-[95%] mb-4 800px:mb-0`}
                       // required
-                      name="password"
+                      name="location"
                       // defaultValue={}
                       // // value={password}
                       // onChange={(e) => setPassword(e.target.value)}
@@ -253,7 +253,7 @@ const page = () => {
                 <div className="flex justify-center items-center pb-4">
                   <button
                     // onClick={handleSubmit}
-                    className={`w-[250px] h-[40px] border  text-center bg-[#ff9900] text-white rounded-md mt-8 cursor-pointer flex justify-center items-center text-base `}
+                    className={`w-[250px] h-[40px] border  text-center bg-gradient-to-r from-[#13a0ef] to-[#c7ec01] text-white rounded-md mt-8 cursor-pointer flex justify-center items-center text-base `}
                     type="submit"
                   >
                     Update

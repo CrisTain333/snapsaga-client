@@ -162,8 +162,10 @@ export default () => {
               <>
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
-                    <Avatar className="cursor-pointer">
-                      <AvatarImage
+                    <Avatar className="cursor-pointer border-[#97ce00] border-2 ">
+                        <AvatarImage
+                          height={30}
+                          width={30}
                         src={user?.profileImage}
                       />
                     </Avatar>
@@ -175,13 +177,19 @@ export default () => {
                     <DropdownMenuSeparator />
                     <DropdownMenuGroup>
                       <DropdownMenuItem>
-                        <Link href="/dashboard">
+                        <Link
+                          href="/dashboard"
+                          className="flex items-center"
+                        >
                           <LayoutDashboard className="mr-2 h-4 w-4" />
                           <span>Dashboard</span>
                         </Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem>
-                        <Link href="/dashboard/profile">
+                        <Link
+                          href="/dashboard/profile"
+                          className="flex items-center"
+                        >
                           <User className="mr-2 h-4 w-4" />
                           <span>Profile</span>
                         </Link>
