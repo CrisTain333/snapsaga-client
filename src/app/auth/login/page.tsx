@@ -1,11 +1,25 @@
 "use client";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect } from "react";
 import logo from "../../../assets/icons/logo.png";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
 const page = () => {
+  const handleSubmit = async (event: any) => {
+    event.preventDefault();
+
+    const form = event.target;
+    const email = form.email.value;
+    const password = form.password.value;
+
+    const data = {
+      email,
+      password,
+    };
+    console.log(data);
+  };
+
   return (
     <div>
       <main className="w-full flex">
@@ -108,7 +122,7 @@ const page = () => {
             </div>
             <div className="relative"></div>
             <form
-              onSubmit={(e) => e.preventDefault()}
+              onSubmit={handleSubmit}
               className="space-y-5"
             >
               <div>
