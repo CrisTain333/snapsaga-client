@@ -2,6 +2,7 @@ import moment from "moment";
 import Link from "next/link";
 import React from "react";
 import { Button } from "../button";
+import { Star } from "lucide-react";
 
 const ServiceCard = ({ service }: any) => {
   const {
@@ -13,6 +14,7 @@ const ServiceCard = ({ service }: any) => {
     price,
     category,
     availability,
+    rating,
   } = service;
   return (
     <div>
@@ -24,18 +26,30 @@ const ServiceCard = ({ service }: any) => {
         />
 
         <div className="bg-white p-4 sm:p-6">
-          <time
-            dateTime="2022-10-10"
-            className="block text-xs text-gray-500"
-          >
-            {moment(createdAt).format("MMM Do YY")}
-          </time>
-          <p className="text-xs mt-3 text-gray-500">
-            {category}
-          </p>
+          <div className="flex items-center justify-between">
+            <div>
+              <time
+                dateTime="2022-10-10"
+                className="block text-xs text-gray-500"
+              >
+                {moment(createdAt).format("MMM Do YY")}
+              </time>
+              <p className="text-xs mt-3 text-gray-500">
+                {category}
+              </p>
+            </div>
+
+            <div className="flex items-center justify-center ">
+              <Star
+                size={20}
+                color="yellow"
+              />
+              <span className="ml-1">{rating}</span>
+            </div>
+          </div>
 
           <Link href={`/services/${id}`}>
-            <h3 className="mt-0.5 text-lg text-gray-900">
+            <h3 className="mt-0.5 text-lg h-10 text-gray-900">
               {title}
             </h3>
           </Link>
