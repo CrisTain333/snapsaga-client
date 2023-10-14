@@ -1,9 +1,15 @@
 "use client";
 import React from "react";
 import { Filter } from "lucide-react";
-import { category } from "@/constants/categories";
+import { category as options } from "@/constants/categories";
 
-const FilterSection = () => {
+const FilterSection = ({
+  searchQuery,
+  setSearchQuery,
+  selectedCategories,
+  setSelectedCategories,
+  toggleCategory,
+}: any) => {
   return (
     <div>
       <div className="sidebar w-[90%] sticky top-20">
@@ -32,8 +38,10 @@ const FilterSection = () => {
                 type="text"
                 className="w-[80%] border rounded-sm p-1 text-sm"
                 id="user_name"
-                // value={searchQuery}
-                // onChange={handleSearch}
+                value={searchQuery}
+                onChange={(e) =>
+                  setSearchQuery(e.target.value)
+                }
                 placeholder="e.g Search Services..."
               />
             </div>
@@ -44,8 +52,8 @@ const FilterSection = () => {
               >
                 Category
               </label>
-              {category?.map((category: any) => (
-                <div key={category}>
+              {options?.map((c: any) => (
+                <div key={c}>
                   <label className="custom-control custom-checkbox">
                     <input
                       type="checkbox"
@@ -53,12 +61,16 @@ const FilterSection = () => {
                       // checked={selectedGenres.includes(
                       //   category.toLowerCase()
                       // )}
-                      value={category}
+                      checked={selectedCategories.includes(
+                        c
+                      )}
+                      onChange={() => toggleCategory(c)}
+                      // value={category}
                       // onChange={handleGenreChange}
                     />
                     <span className="custom-control-indicator"></span>
                     <span className="custom-control-description ml-1 my-1">
-                      {category}
+                      {c}
                     </span>
                   </label>
                 </div>

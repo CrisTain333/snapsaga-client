@@ -5,7 +5,7 @@ import DashboardLayout from "@/Layout/dashboardLayout/DashboardLayout";
 export const metadata: Metadata = {
   title: "Dashboard | Snap-Saga",
   description: "SnapSaga Dashboard",
-  icons: "/public/logo.png",
+  icons: "/logo.png",
 };
 
 export default function RootLayout({

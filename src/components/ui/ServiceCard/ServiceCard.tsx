@@ -1,12 +1,25 @@
+import moment from "moment";
+import Link from "next/link";
 import React from "react";
+import { Button } from "../button";
 
-const ServiceCard = () => {
+const ServiceCard = ({ service }: any) => {
+  const {
+    id,
+    banner,
+    title,
+    createdAt,
+    description,
+    price,
+    category,
+    availability,
+  } = service;
   return (
     <div>
       <article className="overflow-hidden rounded-lg shadow transition hover:shadow-lg">
         <img
           alt="Office"
-          src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"
+          src={banner}
           className="h-56 w-full object-cover"
         />
 
@@ -15,25 +28,40 @@ const ServiceCard = () => {
             dateTime="2022-10-10"
             className="block text-xs text-gray-500"
           >
-            10th Oct 2022
+            {moment(createdAt).format("MMM Do YY")}
           </time>
+          <p className="text-xs mt-3 text-gray-500">
+            {category}
+          </p>
 
-          <a href="#">
+          <Link href={`/services/${id}`}>
             <h3 className="mt-0.5 text-lg text-gray-900">
-              How to position your furniture for positivity
+              {title}
             </h3>
-          </a>
+          </Link>
 
           <p className="mt-2 line-clamp-3 text-sm/relaxed text-gray-500">
-            Lorem ipsum dolor sit amet, consectetur
-            adipisicing elit. Recusandae dolores, possimus
-            pariatur animi temporibus nesciunt praesentium
-            dolore sed nulla ipsum eveniet corporis quidem,
-            mollitia itaque minus soluta, voluptates neque
-            explicabo tempora nisi culpa eius atque
-            dignissimos. Molestias explicabo corporis
-            voluptatem?
+            {description?.slice(0, 50)} . . .
           </p>
+
+          <div className="flex items-center justify-between">
+            {availability ? (
+              <>
+                <p className="font-medium text-lg">
+                  ${price}
+                </p>
+                <Button variant={"default"}>
+                  Add To Cart
+                </Button>
+              </>
+            ) : (
+              <>
+                <span className="text-center text-red-500 font-semibold">
+                  Not Available !
+                </span>
+              </>
+            )}
+          </div>
         </div>
       </article>
     </div>
