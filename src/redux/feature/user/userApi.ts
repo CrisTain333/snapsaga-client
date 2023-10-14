@@ -26,6 +26,14 @@ export const userApi = api.injectEndpoints({
       }),
       invalidatesTags: ["user"],
     }),
+    updateProfileData: builder.mutation({
+      query: (data: any) => ({
+        url: "/user/update-profile-data",
+        method: `POST`,
+        body: data,
+      }),
+      invalidatesTags: ["user"],
+    }),
   }),
 });
 
@@ -33,4 +41,5 @@ export const {
   useRegisterUserMutation,
   useLoginUserMutation,
   useUpdateProfilePictureMutation,
+  useUpdateProfileDataMutation,
 } = userApi;

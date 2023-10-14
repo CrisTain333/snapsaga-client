@@ -1,7 +1,12 @@
 "use client";
+import Loader from "@/components/Loader/Loader";
+import { Button } from "@/components/ui/button";
 import { ToastAction } from "@/components/ui/toast";
 import { useToast } from "@/components/ui/use-toast";
-import { useUpdateProfilePictureMutation } from "@/redux/feature/user/userApi";
+import {
+  useUpdateProfileDataMutation,
+  useUpdateProfilePictureMutation,
+} from "@/redux/feature/user/userApi";
 import { getUser } from "@/redux/feature/user/userSlice";
 import {
   useAppDispatch,
@@ -27,6 +32,8 @@ const page = () => {
 
   const [updateProfilePicture] =
     useUpdateProfilePictureMutation();
+  const [updateProfileData, { isLoading }] =
+    useUpdateProfileDataMutation();
 
   useEffect(() => {
     setUserProfileData({
@@ -40,11 +47,11 @@ const page = () => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    const form = e.target;
-    const name = form.name.value;
-    const email = form.email.value;
-    const phone = form.phone.value;
-    const password = form.password.value;
+    // const form = e.target;
+    // const name = form.name.value;
+    // const email = form.email.value;
+    // const phone = form.phone.value;
+    // const location = form.location.value;
 
     // if (password === "") {
     //   toast.error("Please Enter Password to update");
@@ -52,11 +59,36 @@ const page = () => {
     // }
 
     const data = {
-      name,
-      email,
-      phone,
-      password,
+      name: userProfileData?.name,
+      email: userProfileData?.email,
+      phone: userProfileData?.phone,
+      location: userProfileData?.location,
     };
+
+    const response = await updateProfileData(data);
+
+    const { data: responseData, error } = response;
+    if (responseData?.statusCode === 200) {
+      toast({
+        title: responseData?.message,
+      });
+      await dispatch(getUser());
+      setUploadLoader(false);
+    } else {
+      toast({
+        variant: "destructive",
+        duration: 2500,
+        title: error?.data?.message,
+        action: (
+          <ToastAction
+            altText="Try again"
+            // onClick={() => form.reset()}
+          >
+            Try again
+          </ToastAction>
+        ),
+      });
+    }
   };
 
   // Handle Select Image
@@ -215,12 +247,15 @@ const page = () => {
                       name="name"
                       defaultValue={user?.name}
                       readOnly={false}
-                      // value={userProfile?.name}
-                      // onChange={(e) =>
-                      //     setUserProfile((prev: any) => {
-                      //         return { ...prev, name: e.target.value };
-                      //     })
-                      // }
+                      value={userProfileData?.name}
+                      onChange={(e) =>
+                        setUserProfileData((prev: any) => {
+                          return {
+                            ...prev,
+                            name: e.target.value,
+                          };
+                        })
+                      }
                     />
                   </div>
                   <div className=" w-[100%] md:w-[50%]">
@@ -234,12 +269,15 @@ const page = () => {
                       readOnly
                       name="email"
                       defaultValue={user?.email}
-                      // value={userProfile?.email}
-                      // onChange={(e) =>
-                      //     setUserProfile((prev: any) => {
-                      //         return { ...prev, email: e.target.value };
-                      //     })
-                      // }
+                      value={userProfileData?.email}
+                      onChange={(e) =>
+                        setUserProfileData((prev: any) => {
+                          return {
+                            ...prev,
+                            email: e.target.value,
+                          };
+                        })
+                      }
                     />
                   </div>
                 </div>
@@ -255,12 +293,15 @@ const page = () => {
                       required
                       name="phone"
                       defaultValue={user?.phone}
-                      // value={userProfile?.phone}
-                      // onChange={(e) =>
-                      //     setUserProfile((prev: any) => {
-                      //         return { ...prev, phone: e.target.value };
-                      //     })
-                      // }
+                      value={userProfileData?.phone}
+                      onChange={(e) =>
+                        setUserProfileData((prev: any) => {
+                          return {
+                            ...prev,
+                            phone: e.target.value,
+                          };
+                        })
+                      }
                     />
                   </div>
 
@@ -273,20 +314,40 @@ const page = () => {
                       className={` border p-2 rounded-md !w-[95%] mb-4 800px:mb-0`}
                       // required
                       name="location"
-                      // defaultValue={}
-                      // // value={password}
-                      // onChange={(e) => setPassword(e.target.value)}
+                      defaultValue={user?.location}
+                      value={userProfileData?.location}
+                      onChange={(e) =>
+                        setUserProfileData((prev: any) => {
+                          return {
+                            ...prev,
+                            location: e.target.value,
+                          };
+                        })
+                      }
                     />
                   </div>
                 </div>
                 <div className="flex justify-center items-center pb-4">
-                  <button
-                    // onClick={handleSubmit}
+                  <Button
+                    onClick={handleSubmit}
                     className={`w-[250px] h-[40px] border  text-center bg-gradient-to-r from-[#13a0ef] to-[#c7ec01] text-white rounded-md mt-8 cursor-pointer flex justify-center items-center text-base `}
                     type="submit"
+                    disabled={isLoading}
                   >
-                    Update
-                  </button>
+                    {isLoading ? (
+                      <>
+                        <div className="flex items-center justify-center">
+                          <Loader
+                            size="33"
+                            color="white"
+                          />
+                          <p>Updating .....</p>
+                        </div>
+                      </>
+                    ) : (
+                      <>Update</>
+                    )}
+                  </Button>
                 </div>
               </form>
             </div>
