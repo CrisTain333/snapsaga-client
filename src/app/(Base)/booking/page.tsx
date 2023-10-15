@@ -9,6 +9,7 @@ const page = () => {
   const searchParams = useSearchParams();
   const productId = searchParams.get("productId");
   const [bookingItem, setBookingItem] = useState<any>(null);
+  const { user } = useAppSelector((state) => state.auth);
 
   const { toast } = useToast();
 
@@ -36,12 +37,16 @@ const page = () => {
     const date = form.date.value;
 
     const bookingData = {
-      name,
-      email,
-      phone,
-      zipCode,
-      address,
-      date,
+      bookingInfo: {
+        name,
+        email,
+        phone,
+        zipCode,
+        address,
+        date,
+      },
+      serviceId: productId,
+      user: user,
     };
 
     console.log(bookingData);
