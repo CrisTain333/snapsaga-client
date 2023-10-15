@@ -33,6 +33,7 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
+  SheetClose,
 } from "@/components/ui/sheet";
 
 import { Button } from "@/components/ui/button";
@@ -180,7 +181,13 @@ export default () => {
                             {cartItem?.category}
                           </p>
                           <div className="flex items-center justify-between pt-5">
-                            <Button>Book</Button>
+                            <SheetClose asChild>
+                              <Link
+                                href={`/booking?productId=${cartItem?.id}`}
+                              >
+                                <Button>Book</Button>
+                              </Link>
+                            </SheetClose>
                             <p className="text-base font-black leading-none text-gray-800 ">
                               ${cartItem?.price}
                             </p>
@@ -326,7 +333,13 @@ export default () => {
                               {cartItem?.category}
                             </p>
                             <div className="flex items-center justify-between pt-5">
-                              <Button>Book</Button>
+                              <SheetClose asChild>
+                                <Link
+                                  href={`/booking?productId=${cartItem?.id}`}
+                                >
+                                  <Button>Book</Button>
+                                </Link>
+                              </SheetClose>
                               <p className="text-base font-black leading-none text-gray-800 ">
                                 ${cartItem?.price}
                               </p>
