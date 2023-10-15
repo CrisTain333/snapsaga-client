@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { useAppSelector } from "@/redux/hooks";
+import { Button } from "@/components/ui/button";
 
 const page = () => {
   const searchParams = useSearchParams();
@@ -129,13 +130,13 @@ const page = () => {
                   </div>
                 </div>
               </div>
-              <div>
-                <button
+              <div className="flex items-center justify-center">
+                <Button
                   type="submit"
                   className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
                 >
                   Submit
-                </button>
+                </Button>
               </div>
             </form>
           </div>
