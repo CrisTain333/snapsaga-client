@@ -10,10 +10,15 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const cartSlice = createSlice({
   name: "cart",
-  initialState: getFromLocalStorage("cartItems"), // Initialize with cart items from local storage
+  initialState:
+    JSON.parse(
+      getFromLocalStorage("cartItems") as string
+    ) || [], // Initialize with cart items from local storage
   reducers: {
     addToCart: (state: any, action) => {
       const newItem = action.payload;
+      console.log(state);
+      console.log(newItem);
 
       // Check if the product already exists in the cart
       const existingItemIndex = state?.findIndex(

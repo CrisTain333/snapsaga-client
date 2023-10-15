@@ -1,8 +1,12 @@
+"use client";
 import moment from "moment";
 import Link from "next/link";
 import React from "react";
 import { Button } from "../button";
 import { Star } from "lucide-react";
+import { useAppDispatch } from "@/redux/hooks";
+import { addToCart } from "@/redux/feature/cart/cart";
+import { useToast } from "../use-toast";
 
 const ServiceCard = ({ service }: any) => {
   const {
@@ -16,6 +20,17 @@ const ServiceCard = ({ service }: any) => {
     availability,
     rating,
   } = service;
+
+  const dispatch = useAppDispatch();
+  const { toast } = useToast();
+
+  const handleAddToCart = (data: any) => {
+    dispatch(addToCart(data));
+    toast({
+      title: "Service added to cart",
+    });
+  };
+
   return (
     <div>
       <article className="overflow-hidden rounded-lg shadow transition hover:shadow-lg">
@@ -64,7 +79,7 @@ const ServiceCard = ({ service }: any) => {
           </Link>
 
           <p className="mt-2 line-clamp-3 text-sm/relaxed text-gray-500">
-            {description?.slice(0, 50)} . . .
+            {description?.slice(0, 55)} . . .
           </p>
 
           <div className="flex items-center justify-between">
@@ -73,7 +88,10 @@ const ServiceCard = ({ service }: any) => {
                 <p className="font-medium text-lg">
                   ${price}
                 </p>
-                <Button variant={"default"}>
+                <Button
+                  variant={"default"}
+                  onClick={() => handleAddToCart(service)}
+                >
                   Add To Cart
                 </Button>
               </>

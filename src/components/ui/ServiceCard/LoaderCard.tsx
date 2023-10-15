@@ -23,19 +23,13 @@ const LoaderCard = () => {
           {/* {moment(createdAt).format("MMM Do YY")} */}
           <Skeleton className="bg-gray-300 w-full h-5 " />
           {/* </time> */}
-          <p className="text-xs mt-3 text-gray-500">
-            <Skeleton className=" bg-gray-300 w-full h-5 " />
-          </p>
+          <Skeleton className=" bg-gray-300 w-full h-5 " />
 
           {/* <Link href={`/services/${id}`}>
             <h3 className="mt-0.5 text-lg text-gray-900">
               {title}
             </h3>
           </Link> */}
-
-          <p className="mt-2 line-clamp-3 text-sm/relaxed text-gray-500">
-            {/* {description?.slice(0, 50)} . . . */}
-          </p>
 
           <div className="flex items-center space-x-5 mt-4 justify-between">
             <Skeleton className="bg-gray-300 w-[40%]  h-7   " />
