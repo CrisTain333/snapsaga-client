@@ -26,16 +26,23 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 
 import { Button } from "@/components/ui/button";
 import { logout } from "@/redux/feature/user/userSlice";
+import { removeFromCart } from "@/redux/feature/cart/cart";
 
 export default () => {
   const [state, setState] = useState(false);
   const { user } = useAppSelector((state) => state.auth);
   const cartItems = useAppSelector((state) => state.cart);
-
-  console.log(cartItems);
 
   const dispatch = useAppDispatch();
 
@@ -75,7 +82,116 @@ export default () => {
               napSaga
             </p>
           </Link>
-          <div className="md:hidden">
+          <div className="md:hidden space-x-3 flex items-center justify-center">
+            {/* <div className=" relative py-2 mr-3">
+              <Link href="/cart">
+                <div className="t-0 absolute left-3">
+                  <p className="flex h-2 w-2 items-center justify-center rounded-full bg-red-500 p-3 text-sm text-white">
+                    {cartItems?.length}
+                  </p>
+                </div>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  className="file: mt-4 h-6 w-6"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
+                  />
+                </svg>
+              </Link>
+            </div> */}
+            <Sheet>
+              <SheetTrigger>
+                <div className=" relative py-2 mr-3">
+                  {/* <Link href="/cart"> */}
+                  <div className="t-0 absolute left-3">
+                    <p className="flex h-2 w-2 items-center justify-center rounded-full bg-red-500 p-3 text-sm text-white">
+                      {cartItems?.length}
+                    </p>
+                  </div>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    className="file: mt-4 h-6 w-6"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
+                    />
+                  </svg>
+                  {/* </Link> */}
+                </div>
+              </SheetTrigger>
+              <SheetContent className="overflow-y-scroll">
+                <SheetHeader>
+                  <SheetTitle>
+                    Book Your Services
+                  </SheetTitle>
+                  <SheetDescription>
+                    {cartItems?.map((cartItem: any) => (
+                      <div
+                        className="md:flex items-strech py-3 md:py-5 lg:py-6 border-t border-gray-50"
+                        key={cartItem?.id}
+                      >
+                        <div className=" w-full flex flex-col justify-center">
+                          {/* <p className="text-xs leading-3 text-gray-800  md:pt-0 pt-4">
+                              {cartItem?.id}
+                            </p> */}
+                          <div className="flex items-center justify-between w-full pt-1">
+                            <p className="text-base font-black leading-none text-gray-800 ">
+                              {cartItem?.title}
+                            </p>
+
+                            <div
+                              className="cursor-pointer "
+                              onClick={() =>
+                                dispatch(
+                                  removeFromCart(
+                                    cartItem?.id
+                                  )
+                                )
+                              }
+                            >
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 24 24"
+                                fill="currentColor"
+                                className="w-6 h-6 text-red-600"
+                              >
+                                <path
+                                  fillRule="evenodd"
+                                  d="M16.5 4.478v.227a48.816 48.816 0 013.878.512.75.75 0 11-.256 1.478l-.209-.035-1.005 13.07a3 3 0 01-2.991 2.77H8.084a3 3 0 01-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 01-.256-1.478A48.567 48.567 0 017.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 013.369 0c1.603.051 2.815 1.387 2.815 2.951zm-6.136-1.452a51.196 51.196 0 013.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 00-6 0v-.113c0-.794.609-1.428 1.364-1.452zm-.355 5.945a.75.75 0 10-1.5.058l.347 9a.75.75 0 101.499-.058l-.346-9zm5.48.058a.75.75 0 10-1.498-.058l-.347 9a.75.75 0 001.5.058l.345-9z"
+                                  clipRule="evenodd"
+                                />
+                              </svg>
+                            </div>
+                          </div>
+                          <p className="text-xs leading-3 text-gray-600  pt-2">
+                            {cartItem?.category}
+                          </p>
+                          <div className="flex items-center justify-between pt-5">
+                            <Button>Book</Button>
+                            <p className="text-base font-black leading-none text-gray-800 ">
+                              ${cartItem?.price}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </SheetDescription>
+                </SheetHeader>
+              </SheetContent>
+            </Sheet>
             <button
               className="menu-btn text-gray-500 hover:text-gray-800"
               onClick={() => setState(!state)}
@@ -135,28 +251,93 @@ export default () => {
             })}
           </ul>
           <div className="flex-1 gap-x-5 items-center justify-end mt-6 space-y-6 md:flex md:space-y-0 md:mt-0">
-            <div className="relative py-2 mr-3">
-              <Link href="/cart">
-                <div className="t-0 absolute left-3">
-                  <p className="flex h-2 w-2 items-center justify-center rounded-full bg-red-500 p-3 text-sm text-white">
-                    {cartItems?.length}
-                  </p>
-                </div>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke-width="1.5"
-                  stroke="currentColor"
-                  className="file: mt-4 h-6 w-6"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
-                  />
-                </svg>
-              </Link>
+            <div className="hidden md:block relative py-2 mr-3">
+              <Sheet>
+                <SheetTrigger>
+                  <div className=" relative py-2 mr-3">
+                    {/* <Link href="/cart"> */}
+                    <div className="t-0 absolute left-3">
+                      <p className="flex h-2 w-2 items-center justify-center rounded-full bg-red-500 p-3 text-sm text-white">
+                        {cartItems?.length}
+                      </p>
+                    </div>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                      className="file: mt-4 h-6 w-6"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
+                      />
+                    </svg>
+                    {/* </Link> */}
+                  </div>
+                </SheetTrigger>
+                <SheetContent className="overflow-y-scroll">
+                  <SheetHeader>
+                    <SheetTitle>
+                      Book Your Services
+                    </SheetTitle>
+                    <SheetDescription>
+                      {cartItems?.map((cartItem: any) => (
+                        <div
+                          className="md:flex items-strech py-3 md:py-5 lg:py-6 border-t border-gray-50"
+                          key={cartItem?.id}
+                        >
+                          <div className=" w-full flex flex-col justify-center">
+                            {/* <p className="text-xs leading-3 text-gray-800  md:pt-0 pt-4">
+                              {cartItem?.id}
+                            </p> */}
+                            <div className="flex items-center justify-between w-full pt-1">
+                              <p className="text-base font-black leading-none text-gray-800 ">
+                                {cartItem?.title}
+                              </p>
+
+                              <div
+                                className="cursor-pointer "
+                                onClick={() =>
+                                  dispatch(
+                                    removeFromCart(
+                                      cartItem?.id
+                                    )
+                                  )
+                                }
+                              >
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  viewBox="0 0 24 24"
+                                  fill="currentColor"
+                                  className="w-6 h-6 text-red-600"
+                                >
+                                  <path
+                                    fillRule="evenodd"
+                                    d="M16.5 4.478v.227a48.816 48.816 0 013.878.512.75.75 0 11-.256 1.478l-.209-.035-1.005 13.07a3 3 0 01-2.991 2.77H8.084a3 3 0 01-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 01-.256-1.478A48.567 48.567 0 017.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 013.369 0c1.603.051 2.815 1.387 2.815 2.951zm-6.136-1.452a51.196 51.196 0 013.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 00-6 0v-.113c0-.794.609-1.428 1.364-1.452zm-.355 5.945a.75.75 0 10-1.5.058l.347 9a.75.75 0 101.499-.058l-.346-9zm5.48.058a.75.75 0 10-1.498-.058l-.347 9a.75.75 0 001.5.058l.345-9z"
+                                    clipRule="evenodd"
+                                  />
+                                </svg>
+                              </div>
+                            </div>
+                            <p className="text-xs leading-3 text-gray-600  pt-2">
+                              {cartItem?.category}
+                            </p>
+                            <div className="flex items-center justify-between pt-5">
+                              <Button>Book</Button>
+                              <p className="text-base font-black leading-none text-gray-800 ">
+                                ${cartItem?.price}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </SheetDescription>
+                  </SheetHeader>
+                </SheetContent>
+              </Sheet>
             </div>
 
             {!user ? (

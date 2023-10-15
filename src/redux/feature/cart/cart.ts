@@ -1,3 +1,4 @@
+"use client";
 import { getFromLocalStorage } from "@/lib/localStorage/localStorage";
 import { createSlice } from "@reduxjs/toolkit";
 
@@ -17,8 +18,6 @@ const cartSlice = createSlice({
   reducers: {
     addToCart: (state: any, action) => {
       const newItem = action.payload;
-      console.log(state);
-      console.log(newItem);
 
       // Check if the product already exists in the cart
       const existingItemIndex = state?.findIndex(
@@ -38,9 +37,19 @@ const cartSlice = createSlice({
       );
     },
     removeFromCart: (state: any, action) => {
-      return state?.filter(
-        (item: any) => item.id !== action.payload
+      const itemIdToRemove = action.payload;
+      const newState = state.filter(
+        (item: any) => item.id !== itemIdToRemove
       );
+
+      // Update local storage to remove the item
+      localStorage.setItem(
+        "cartItems",
+        JSON.stringify(newState)
+      );
+
+      // Return the new state
+      return newState;
     },
     clearCart: () => {
       const newState: any = [];
