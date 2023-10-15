@@ -6,14 +6,7 @@ import { useGetServiceQuery } from "@/redux/feature/service/serviceApi";
 import React, { useEffect, useState } from "react";
 import { category as options } from "@/constants/categories";
 import { Filter } from "lucide-react";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+
 import LoaderCard from "@/components/ui/ServiceCard/LoaderCard";
 
 const page = () => {
@@ -27,18 +20,24 @@ const page = () => {
   const [category, setCategory] = useState("");
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPage, setTotalPage] = useState();
 
   useEffect(() => {
     setIsLoading(true);
     setIsError(false);
 
-    const apiUrl = `${process.env.NEXT_PUBLIC_BACKEND_API}/service?page=${page}&pageSize=${pageSize}&searchQuery=${searchQuery}&category=${category}&minPrice=${minPrice}&maxPrice=${maxPrice}`;
+    const apiUrl = `${
+      process.env.NEXT_PUBLIC_BACKEND_API
+    }/service?page=${currentPage}&pageSize=${6}&searchQuery=${searchQuery}&category=${category}&minPrice=${minPrice}&maxPrice=${maxPrice}`;
 
     fetch(apiUrl)
       .then((response) => response.json())
       .then((data) => {
-        setServices(data.data); // Assuming the response has a 'data' property
+        setServices(data?.data);
         setIsLoading(false);
+        setCurrentPage(data?.meta?.page);
+        setTotalPage(data?.meta?.total);
       })
       .catch((error) => {
         setIsError(true);
@@ -52,9 +51,21 @@ const page = () => {
     category,
     minPrice,
     maxPrice,
+    currentPage,
   ]);
 
-  const test = true;
+  const handleNext = () => {
+    setCurrentPage((prev) => prev + 1);
+  };
+  const handlePrevious = () => {
+    setCurrentPage((prev) => prev - 1);
+  };
+
+  const pageNumbers = [];
+  for (let i = 1; i <= totalPage!; i++) {
+    pageNumbers.push(i);
+  }
+  console.log(pageNumbers);
   const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9];
   return (
     <div>
@@ -71,11 +82,7 @@ const page = () => {
                     </span>
                     Filters
                   </h2>
-                  <form
-                  // id="user_wiget_search_form"
-                  // className="user_wiget_search_form"
-                  // method="GET"
-                  >
+                  <form>
                     <div className="form-group mb-1">
                       <label
                         htmlFor="search"
@@ -158,6 +165,67 @@ const page = () => {
                       </div>
                     </div>
                   </form>
+
+                  <div className="flex items-center justify-center my-2 space-y-2 text-xs sm:space-y-0 sm:space-x-3 ">
+                    <div className=" items-center justify-end space-y-2 text-xs sm:space-y-0 sm:space-x-3 sm:flex">
+                      <span className="block text-base">
+                        Page {currentPage} of{" "}
+                        {pageNumbers?.length}
+                      </span>
+                      <div className="space-x-1">
+                        <button
+                          onClick={() => handlePrevious()}
+                          title="previous"
+                          type="button"
+                          className={`inline-flex  items-center justify-center w-8 h-8 py-0  rounded-md shadow ${
+                            currentPage === 1
+                              ? "opacity-50 cursor-not-allowed"
+                              : ""
+                          }`}
+                          disabled={currentPage === 1}
+                        >
+                          <svg
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            fill="none"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            className="w-4"
+                          >
+                            <polyline points="15 18 9 12 15 6"></polyline>
+                          </svg>
+                        </button>
+                        <button
+                          onClick={() => handleNext()}
+                          title="next"
+                          type="button"
+                          className={`inline-flex items-center  justify-center w-8 h-8 py-0  rounded-md shadow ${
+                            currentPage ===
+                            pageNumbers?.length
+                              ? "opacity-50 cursor-not-allowed"
+                              : ""
+                          }`}
+                          disabled={
+                            currentPage ===
+                            pageNumbers?.length
+                          }
+                        >
+                          <svg
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            fill="none"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            className="w-4"
+                          >
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                          </svg>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
