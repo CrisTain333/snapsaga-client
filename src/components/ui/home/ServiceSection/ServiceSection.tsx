@@ -34,7 +34,7 @@ const ServiceSection = () => {
               {isLoading ? (
                 <>
                   {[1, 2, 3, 4, 5, 6]?.map((service, i) => (
-                    <div className="col-span-4">
+                    <div className="col-span-12 md:col-span-4">
                       <LoaderCard key={i} />
                     </div>
                   ))}
@@ -43,7 +43,7 @@ const ServiceSection = () => {
                 <>
                   {data?.data?.map(
                     (service: any, i: any) => (
-                      <div className="col-span-4">
+                      <div className="col-span-12 md:col-span-4">
                         <ServiceCard
                           key={i + 1}
                           service={service}
