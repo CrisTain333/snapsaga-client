@@ -3,13 +3,18 @@ import React, { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { useAppSelector } from "@/redux/hooks";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/components/ui/use-toast";
 
 const page = () => {
   const searchParams = useSearchParams();
   const productId = searchParams.get("productId");
   const [bookingItem, setBookingItem] = useState<any>(null);
 
-  const cartItems = useAppSelector((state) => state.cart);
+  const { toast } = useToast();
+
+  const cartItems: any = useAppSelector(
+    (state) => state.cart
+  );
 
   useEffect(() => {
     if (productId) {
@@ -20,7 +25,27 @@ const page = () => {
     }
   }, [productId, cartItems]);
 
-  console.log(bookingItem);
+  const handleBookingSubmit = async (e: any) => {
+    e.preventDefault();
+    const form = e.target;
+    const name = form.name.value;
+    const email = form.email.value;
+    const phone = form.phone.value;
+    const zipCode = form.zipCode.value;
+    const address = form.address.value;
+    const date = form.date.value;
+
+    const bookingData = {
+      name,
+      email,
+      phone,
+      zipCode,
+      address,
+      date,
+    };
+
+    console.log(bookingData);
+  };
 
   return (
     <div className="my-10">
@@ -31,7 +56,7 @@ const page = () => {
 
         <div>
           <div className="bg-white border rounded-lg px-8 py-6 mx-auto my-8 max-w-2xl">
-            <form>
+            <form onSubmit={handleBookingSubmit}>
               <div className="mb-4">
                 <div className="block md:flex items-center space-x-0 md:space-x-2">
                   <div className="w-full md:w-1/2">
@@ -47,6 +72,7 @@ const page = () => {
                       name="name"
                       className="border border-gray-400 p-2 w-full rounded-lg focus:outline-none focus:border-blue-400"
                       required
+                      placeholder="your name eg:cristain"
                     />
                   </div>
                   <div className="w-full md:w-1/2">
@@ -62,6 +88,7 @@ const page = () => {
                       name="address"
                       className="border border-gray-400 p-2 w-full rounded-lg focus:outline-none focus:border-blue-400"
                       required
+                      placeholder="your address"
                     />
                   </div>
                 </div>
@@ -79,6 +106,7 @@ const page = () => {
                       name="zipCode"
                       className="border border-gray-400 p-2 w-full rounded-lg focus:outline-none focus:border-blue-400"
                       required
+                      placeholder="your zip code"
                     />
                   </div>
                   <div className="w-full md:w-1/2">
@@ -94,6 +122,7 @@ const page = () => {
                       name="email"
                       className="border border-gray-400 p-2 w-full rounded-lg focus:outline-none focus:border-blue-400"
                       required
+                      placeholder="your email eG:snap-sega@gmail.com"
                     />
                   </div>
                 </div>
@@ -111,6 +140,7 @@ const page = () => {
                       name="phone"
                       className="border border-gray-400 p-2 w-full rounded-lg focus:outline-none focus:border-blue-400"
                       required
+                      placeholder="your phone number eg:+990020000"
                     />
                   </div>
                   <div className="w-full md:w-1/2">
