@@ -20,7 +20,7 @@ const page = () => {
   const [bookingItem, setBookingItem] = useState<any>(null);
   const { user } = useAppSelector((state) => state.auth);
 
-  const [isSuccess, setIsSuccessTrue] = useState(true);
+  const [isSuccess, setIsSuccessTrue] = useState(false);
   const dispatch = useAppDispatch();
 
   const { toast } = useToast();

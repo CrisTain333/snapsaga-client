@@ -1,4 +1,7 @@
-import { getUser } from "@/redux/feature/user/userSlice";
+import {
+  getUser,
+  setLoadingFalse,
+} from "@/redux/feature/user/userSlice";
 import {
   useAppDispatch,
   useAppSelector,
@@ -10,13 +13,17 @@ const InitializeUser = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const { token } = useAppSelector((state) => state.auth);
+  const { token, isLoading } = useAppSelector(
+    (state) => state.auth
+  );
   const dispatch = useAppDispatch();
 
   React.useEffect(() => {
     const initializeApp = async () => {
       if (token) {
         await dispatch(getUser());
+      } else {
+        dispatch(setLoadingFalse(false));
       }
     };
 
