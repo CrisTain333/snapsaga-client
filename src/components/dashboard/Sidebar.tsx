@@ -8,10 +8,14 @@ import {
   UserCircle2,
 } from "lucide-react";
 import { logout } from "@/redux/feature/user/userSlice";
-import { useAppDispatch } from "@/redux/hooks";
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "@/redux/hooks";
 
 const DashboardSidebar = () => {
   const dispatch = useAppDispatch();
+  const { user } = useAppSelector((state) => state.auth);
   return (
     <div>
       <div className="w-full bg-white text-black rounded-[10px] p-4 pt-8 shadow-md">
@@ -27,42 +31,53 @@ const DashboardSidebar = () => {
             </span>
           </div>
         </Link>
-        <Link href="/dashboard/profile">
-          <div className="flex items-center cursor-pointer w-full mb-8">
-            <UserCircle2 size={20} />
-            <span
-              className={`pl-3 
-              text-[black]
-             md:block hidden`}
-            >
-              Profile
-            </span>
-          </div>
-        </Link>
-        <div className="flex items-center cursor-pointer w-full mb-8">
-          <BookUp2
-            size={20}
-            // color={active === 2 ? "red" : ""}
-          />
-          <span
-            className={`pl-3 
-              text-[black]
-             md:block hidden`}
-          >
-            Bookings
-          </span>
-        </div>
 
-        <div className="flex items-center cursor-pointer w-full mb-8 ">
-          <PieChart size={20} />
-          <span
-            className={`pl-3 
+        {/*  ------------------------------For User------------------  */}
+
+        {user?.role === "user" && (
+          <>
+            <Link href="/dashboard/profile">
+              <div className="flex items-center cursor-pointer w-full mb-8">
+                <UserCircle2 size={20} />
+                <span
+                  className={`pl-3 
               text-[black]
              md:block hidden`}
-          >
-            Track Order
-          </span>
-        </div>
+                >
+                  Profile
+                </span>
+              </div>
+            </Link>
+            <Link href="/dashboard/booking">
+              <div className="flex items-center cursor-pointer w-full mb-8">
+                <BookUp2
+                  size={20}
+                  // color={active === 2 ? "red" : ""}
+                />
+                <span
+                  className={`pl-3 
+              text-[black]
+             md:block hidden`}
+                >
+                  Bookings
+                </span>
+              </div>
+            </Link>
+
+            <Link href="/dashboard/track-booking">
+              <div className="flex items-center cursor-pointer w-full mb-8 ">
+                <PieChart size={20} />
+                <span
+                  className={`pl-3 
+              text-[black]
+             md:block hidden`}
+                >
+                  Track Order
+                </span>
+              </div>
+            </Link>
+          </>
+        )}
 
         <div
           className="single_item flex items-center cursor-pointer w-full mb-8"

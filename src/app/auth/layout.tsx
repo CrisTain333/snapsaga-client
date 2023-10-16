@@ -16,6 +16,7 @@ export default function RootLayout({
   return (
     <>
       <BaseComponent
+        className="w-full"
         showNavbar={false}
         showFooter={false}
       >
