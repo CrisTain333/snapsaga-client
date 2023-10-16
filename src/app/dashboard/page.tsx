@@ -29,7 +29,7 @@ const page = ({}) => {
             </Link>
           </div>
           <div className="col-span-12 md:col-span-4 rounded-md shadow-md">
-            <Link href={"/dashboard/bookings"}>
+            <Link href={"/dashboard/booking"}>
               <div className="flex flex-col space-y-3 items-center justify-center p-5 px-5">
                 <BookUp2 size={50} />
                 <span className="text-2xl font-bold ">
@@ -39,7 +39,7 @@ const page = ({}) => {
             </Link>
           </div>
           <div className="col-span-12 md:col-span-4 rounded-md shadow-md">
-            <Link href={"/dashboard/track-bookings"}>
+            <Link href={"/dashboard/track-booking"}>
               <div className="flex flex-col space-y-3 items-center justify-center p-5 px-5">
                 <PieChart size={50} />
                 <span className="text-2xl font-bold ">

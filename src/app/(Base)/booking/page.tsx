@@ -1,13 +1,17 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { useAppSelector } from "@/redux/hooks";
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "@/redux/hooks";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 import { useCreateBookingMutation } from "@/redux/feature/booking/bookingApi";
 import { ToastAction } from "@radix-ui/react-toast";
 import Loader from "@/components/Loader/Loader";
 import OrderSuccess from "@/components/BookingSuccessMessage/BookingSuccessMessage";
+import { removeFromCart } from "@/redux/feature/cart/cart";
 
 const page = () => {
   const searchParams = useSearchParams();
@@ -17,6 +21,7 @@ const page = () => {
   const { user } = useAppSelector((state) => state.auth);
 
   const [isSuccess, setIsSuccessTrue] = useState(true);
+  const dispatch = useAppDispatch();
 
   const { toast } = useToast();
 
@@ -64,6 +69,7 @@ const page = () => {
 
     if (responseData?.statusCode === 200) {
       setIsSuccessTrue(true);
+      dispatch(removeFromCart(parseInt(productId!)));
       toast({
         title: responseData?.message,
       });
