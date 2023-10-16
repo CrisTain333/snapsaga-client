@@ -1,5 +1,8 @@
 "use client";
-import { useGetBookingsQuery } from "@/redux/feature/booking/bookingApi";
+import {
+  useCancelBookingMutation,
+  useGetBookingsQuery,
+} from "@/redux/feature/booking/bookingApi";
 import React from "react";
 import {
   Table,
@@ -11,11 +14,32 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/components/ui/use-toast";
 
 const page = () => {
   const { data } = useGetBookingsQuery();
+  const [cancelBooking, { isLoading }] =
+    useCancelBookingMutation();
 
-  console.log(data);
+  const { toast } = useToast();
+
+  const handleCancelBooking = async (bookingId: any) => {
+    console.log(bookingId);
+
+    const response = await cancelBooking(bookingId);
+    const { data: responseData, error } = response;
+    if (responseData?.statusCode === 200) {
+      toast({
+        title: responseData?.message,
+      });
+    } else {
+      toast({
+        variant: "destructive",
+        duration: 2500,
+        title: error?.data?.message,
+      });
+    }
+  };
 
   return (
     <div>
@@ -36,7 +60,7 @@ const page = () => {
         </TableHeader>
         <TableBody>
           {data?.data?.map((e: any) => (
-            <TableRow>
+            <TableRow key={e?.id}>
               <TableCell className="font-medium">
                 {e?.service?.title}
               </TableCell>
@@ -59,7 +83,12 @@ const page = () => {
               </TableCell>
               <TableCell className="text-right">
                 <div>
-                  <Button className="bg-red-500 text-white">
+                  <Button
+                    className="bg-red-500 text-white"
+                    onClick={() =>
+                      handleCancelBooking(e?.id)
+                    }
+                  >
                     Cancel
                   </Button>
                 </div>
