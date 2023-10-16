@@ -12,7 +12,18 @@ export const bookingApi = api.injectEndpoints({
       }),
       invalidatesTags: ["booking"],
     }),
+    getBookings: builder.query({
+      query: () => ({
+        url: `/booking`,
+        method: "GET",
+      }),
+
+      providesTags: ["booking"],
+    }),
   }),
 });
 
-export const { useCreateBookingMutation } = bookingApi;
+export const {
+  useCreateBookingMutation,
+  useGetBookingsQuery,
+} = bookingApi;
