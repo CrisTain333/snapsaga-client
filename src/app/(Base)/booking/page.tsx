@@ -4,18 +4,28 @@ import { useSearchParams } from "next/navigation";
 import { useAppSelector } from "@/redux/hooks";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
+import { useCreateBookingMutation } from "@/redux/feature/booking/bookingApi";
+import { ToastAction } from "@radix-ui/react-toast";
+import Loader from "@/components/Loader/Loader";
+import OrderSuccess from "@/components/BookingSuccessMessage/BookingSuccessMessage";
 
 const page = () => {
   const searchParams = useSearchParams();
-  const productId = searchParams.get("productId");
+  const productId: string | null =
+    searchParams.get("productId");
   const [bookingItem, setBookingItem] = useState<any>(null);
   const { user } = useAppSelector((state) => state.auth);
+
+  const [isSuccess, setIsSuccessTrue] = useState(true);
 
   const { toast } = useToast();
 
   const cartItems: any = useAppSelector(
     (state) => state.cart
   );
+
+  const [createBooking, { isLoading }] =
+    useCreateBookingMutation();
 
   useEffect(() => {
     if (productId) {
@@ -37,20 +47,50 @@ const page = () => {
     const date = form.date.value;
 
     const bookingData = {
+      userId: parseInt(user?.id),
+      serviceId: parseInt(productId as string),
       bookingInfo: {
         name,
         email,
         phone,
-        zipCode,
         address,
         date,
+        zipCode,
       },
-      serviceId: productId,
-      user: user,
     };
 
-    console.log(bookingData);
+    const response: any = await createBooking(bookingData);
+    const { data: responseData, error } = response;
+
+    if (responseData?.statusCode === 200) {
+      setIsSuccessTrue(true);
+      toast({
+        title: responseData?.message,
+      });
+    } else {
+      toast({
+        variant: "destructive",
+        duration: 2500,
+        title: error?.data?.message,
+        action: (
+          <ToastAction
+            altText="Try again"
+            onClick={() => form.reset()}
+          >
+            Try again
+          </ToastAction>
+        ),
+      });
+    }
   };
+
+  if (isSuccess) {
+    return (
+      <div>
+        <OrderSuccess />
+      </div>
+    );
+  }
 
   return (
     <div className="my-10">
@@ -170,7 +210,21 @@ const page = () => {
                   type="submit"
                   className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
                 >
-                  Submit
+                  {isLoading ? (
+                    <>
+                      <div className="flex items-center">
+                        <Loader
+                          color="white"
+                          size="32"
+                        />
+                        <span className="ml-1">
+                          Submitting ....
+                        </span>
+                      </div>
+                    </>
+                  ) : (
+                    <>Submit</>
+                  )}
                 </Button>
               </div>
             </form>
