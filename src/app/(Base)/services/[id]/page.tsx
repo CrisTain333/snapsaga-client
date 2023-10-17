@@ -1,17 +1,26 @@
 "use client";
+import { useGetReviewQuery } from "@/redux/feature/review/reviewApi";
+import { Rating } from "@smastrom/react-rating";
+import moment from "moment";
 import React, { useEffect, useState } from "react";
+import "@smastrom/react-rating/style.css";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 const page = ({ params }: any) => {
   const [services, setServices] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const { id } = params;
+
+  const { data } = useGetReviewQuery(id);
+  console.log(data);
+
   useEffect(() => {
     setIsLoading(true);
     setIsError(false);
 
     const apiUrl = `${process.env.NEXT_PUBLIC_BACKEND_API}/service/${id}`;
-    console.log(apiUrl);
 
     fetch(apiUrl)
       .then((response) => response.json())
@@ -88,7 +97,7 @@ const page = ({ params }: any) => {
       </div>
       <section className="text-gray-600 body-font">
         <div className="container px-5 mx-auto flex flex-col">
-          <div className="lg:w-6/6 mx-auto">
+          <div className="w-[95%] mx-auto">
             <div className="flex flex-col justify-center sm:flex-row mt-10">
               {/* <div className="sm:w-1/3 text-center sm:pr-8 sm:py-8">
                 <div className="flex flex-col items-center text-center justify-center">
@@ -114,15 +123,68 @@ const page = ({ params }: any) => {
                 <p className="leading-relaxed text-lg mb-4 inline-flex justify-center sm:justify-start">
                   {description}
                 </p>
-                <p className="text-black inline-flex items-center text-lg font-bold">
-                  Price: ${price}
-                </p>
-                <div className=" w-full lg:w-20 h-1 bg-primary rounded mt-2 mb-4"></div>
+                <div className="flex items-center justify-between">
+                  <p className="text-black inline-flex items-center text-lg font-bold">
+                    Price: ${price}
+                  </p>
+                  <div className="">
+                    <Link href={`/booking?productId=${id}`}>
+                      <Button>Book</Button>
+                    </Link>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </section>
+
+      <div>
+        <p className="px-3 py-px mb-4 font-semibold tracking-wider text-white uppercase rounded-full bg-primary text-center text-xl">
+          All Reviews
+        </p>
+
+        <div>
+          {data?.data?.map((e: any) => (
+            <article
+              key={e?.id}
+              className="border rounded p-2"
+            >
+              <div className="flex items-center mb-4 space-x-4 ">
+                <img
+                  className="w-10 h-10 rounded-full"
+                  src={e?.user?.profileImage}
+                  alt=""
+                />
+                <div className="space-y-1 font-medium dark:text-white">
+                  <p>
+                    {e?.user?.name}
+                    <time
+                      dateTime="2014-08-16 19:00"
+                      className="block text-sm text-gray-500 dark:text-gray-400"
+                    >
+                      Joined on{" "}
+                      {moment(e?.user?.createdAt).format(
+                        "MMM Do YY"
+                      )}
+                    </time>
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-center mb-1">
+                <Rating
+                  style={{ maxWidth: 100 }}
+                  value={parseInt(e?.rating)}
+                  // onChange={setRating}
+                />
+              </div>
+              <p className="mb-2 text-gray-500 dark:text-gray-400">
+                {e?.message}
+              </p>
+            </article>
+          ))}
+        </div>
+      </div>
     </div>
   );
 };

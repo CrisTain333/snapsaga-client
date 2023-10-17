@@ -19,19 +19,19 @@ export const reviewApi = api.injectEndpoints({
     //   }),
     //   invalidatesTags: ["booking"],
     // }),
-    // getBookings: builder.query({
-    //   query: () => ({
-    //     url: `/booking`,
-    //     method: "GET",
-    //   }),
+    getReview: builder.query({
+      query: (id: any) => ({
+        url: `/review/${id}`,
+        method: "GET",
+      }),
 
-    //   providesTags: ["booking"],
-    // }),
+      providesTags: ["review"],
+    }),
   }),
 });
 
 export const {
   //   useCancelBookingMutation,
   useCreateReviewMutation,
-  //   useGetBookingsQuery,
+  useGetReviewQuery,
 } = reviewApi;

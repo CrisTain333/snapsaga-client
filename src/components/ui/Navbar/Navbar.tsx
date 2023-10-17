@@ -49,6 +49,7 @@ export default () => {
 
   const navigation = [
     { title: "Services", path: "/services" },
+    { title: "Feedback", path: "/feed-back" },
   ];
 
   useEffect(() => {
