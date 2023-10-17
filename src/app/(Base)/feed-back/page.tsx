@@ -1,6 +1,57 @@
+"use client";
+import Loader from "@/components/Loader/Loader";
+import { Button } from "@/components/ui/button";
+import { useToast } from "@/components/ui/use-toast";
+import { useCreateFeedbackMutation } from "@/redux/feature/feedback/feedbackApi";
 import React from "react";
 
 const page = () => {
+  const { toast } = useToast();
+  const [addFeedback, { isLoading }] =
+    useCreateFeedbackMutation();
+
+  const handleSubmitFeedBack = async (e: any) => {
+    e.preventDefault();
+    const form = e.target;
+    const email = form.email.value;
+    const message = form.feedback.value;
+
+    if (email === "" || email === undefined) {
+      toast({
+        title: "email is required",
+        variant: "destructive",
+      });
+      return;
+    } else if (message === "" || message === undefined) {
+      toast({
+        title: "message is required",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    const data = {
+      email,
+      message,
+    };
+
+    const response = await addFeedback(data);
+    const { data: responseData, error } = response;
+    if (responseData?.statusCode === 200) {
+      toast({
+        title: responseData?.message,
+      });
+
+      form.reset();
+    } else {
+      toast({
+        variant: "destructive",
+        duration: 2500,
+        title: error?.data?.message,
+      });
+    }
+  };
+
   return (
     <div>
       <section>
@@ -32,8 +83,7 @@ const page = () => {
                         </h4>
                         <form
                           id="feedbackForm"
-                          action=""
-                          method=""
+                          onSubmit={handleSubmitFeedBack}
                         >
                           <div className="relative w-full mb-3">
                             <label
@@ -72,14 +122,25 @@ const page = () => {
                             ></textarea>
                           </div>
                           <div className="text-center mt-6">
-                            <button
-                              id="feedbackBtn"
-                              className="bg-yellow-300 text-black text-center mx-auto active:bg-yellow-400 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
+                            <Button
+                              className="bg-sky-400 text-white text-center mx-auto  text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
                               type="submit"
                               // style="transition: all 0.15s ease 0s;"
                             >
-                              Submit
-                            </button>
+                              {isLoading ? (
+                                <>
+                                  <div className="flex items-center justify-center">
+                                    <Loader
+                                      size="30"
+                                      color="white"
+                                    />
+                                    <p>Submitting ....</p>
+                                  </div>
+                                </>
+                              ) : (
+                                <>Submit</>
+                              )}
+                            </Button>
                           </div>
                         </form>
                       </div>
