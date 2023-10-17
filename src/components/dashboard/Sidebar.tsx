@@ -5,6 +5,7 @@ import {
   LayoutDashboard,
   LogOut,
   PieChart,
+  User,
   UserCircle2,
 } from "lucide-react";
 import { logout } from "@/redux/feature/user/userSlice";
@@ -73,6 +74,40 @@ const DashboardSidebar = () => {
              md:block hidden`}
                 >
                   Track Order
+                </span>
+              </div>
+            </Link>
+          </>
+        )}
+
+        {/*   ------------------------------For Admin ------------------  */}
+
+        {user?.role === "admin" && (
+          <>
+            <Link href="/dashboard/profile">
+              <div className="flex items-center cursor-pointer w-full mb-8">
+                <UserCircle2 size={20} />
+                <span
+                  className={`pl-3 
+              text-[black]
+             md:block hidden`}
+                >
+                  Profile
+                </span>
+              </div>
+            </Link>
+            <Link href="/dashboard/users">
+              <div className="flex items-center cursor-pointer w-full mb-8">
+                <User
+                  size={20}
+                  // color={active === 2 ? "red" : ""}
+                />
+                <span
+                  className={`pl-3 
+              text-[black]
+             md:block hidden`}
+                >
+                  User Management
                 </span>
               </div>
             </Link>
