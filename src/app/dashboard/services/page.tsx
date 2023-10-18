@@ -1,5 +1,6 @@
 "use client";
 import {
+  useDeleteServiceMutation,
   useGetServiceQuery,
   useUpdateServiceMutation,
 } from "@/redux/feature/service/serviceApi";
@@ -40,6 +41,7 @@ import {
 } from "@/components/ui/select";
 import { useUpdateProfilePictureMutation } from "@/redux/feature/user/userApi";
 import { ToastAction } from "@/components/ui/toast";
+import swal from "sweetalert";
 
 const page = () => {
   const [currentPage, setCurrentPage] = React.useState(1);
@@ -59,6 +61,7 @@ const page = () => {
   const { data: services } =
     useGetServiceQuery(currentPage);
   const [updateService] = useUpdateServiceMutation();
+  const [deleteService] = useDeleteServiceMutation();
 
   useEffect(() => {
     if (services) {
@@ -140,6 +143,37 @@ const page = () => {
         ),
       });
     }
+  };
+
+  const handleDelete = async (serviceId: any) => {
+    console.log(serviceId);
+
+    swal({
+      title:
+        "Are you sure you want to delete This Service ?",
+      text: "Once deleted, you will not be able to recover this service",
+      icon: "warning",
+      buttons: ["Cancel", "Delete"], // Define buttons as an array,
+      dangerMode: true,
+    }).then(async (willDelete) => {
+      if (willDelete) {
+        const response = await deleteService(serviceId);
+        const { data: responseData, error } = response;
+        if (responseData?.statusCode === 200) {
+          swal("Service has been deleted !", {
+            icon: "success",
+          });
+        } else {
+          toast({
+            variant: "destructive",
+            duration: 2500,
+            title: error?.data?.message,
+          });
+        }
+      } else {
+        swal("Service is safe!");
+      }
+    });
   };
 
   return (
@@ -373,6 +407,7 @@ const page = () => {
                     </SheetContent>
                   </Sheet>
                   <Button
+                    onClick={() => handleDelete(e?.id)}
                     size={"sm"}
                     className="flex items-center justify-center bg-red-500 text-white"
                   >
