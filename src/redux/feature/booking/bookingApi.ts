@@ -19,6 +19,21 @@ export const bookingApi = api.injectEndpoints({
       }),
       invalidatesTags: ["booking"],
     }),
+    cancelBookingAdmin: builder.mutation({
+      query: (id: any) => ({
+        url: `/booking/cancel-booking/${id}`,
+        method: `PATCH`,
+      }),
+      invalidatesTags: ["booking", "all_booking"],
+    }),
+    confirmBookingAdmin: builder.mutation({
+      query: (id: any) => ({
+        url: `/booking/confirm-booking/${id}`,
+        method: `PATCH`,
+      }),
+      invalidatesTags: ["booking", "all_booking"],
+    }),
+
     getBookings: builder.query({
       query: () => ({
         url: `/booking`,
@@ -27,11 +42,22 @@ export const bookingApi = api.injectEndpoints({
 
       providesTags: ["booking"],
     }),
+    getAllBookings: builder.query({
+      query: (page: any) => ({
+        url: `/booking/all-bookings?page=${page}`,
+        method: "GET",
+      }),
+
+      providesTags: ["all_booking"],
+    }),
   }),
 });
 
 export const {
+  useCancelBookingAdminMutation,
+  useConfirmBookingAdminMutation,
   useCancelBookingMutation,
   useCreateBookingMutation,
   useGetBookingsQuery,
+  useGetAllBookingsQuery,
 } = bookingApi;

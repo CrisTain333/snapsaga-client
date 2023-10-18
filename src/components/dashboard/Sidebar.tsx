@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 import {
   BookUp2,
+  ClipboardList,
   FilePlus2,
   LayoutDashboard,
   LogOut,
@@ -139,6 +140,18 @@ const DashboardSidebar = () => {
              md:block hidden`}
                 >
                   Create Service
+                </span>
+              </div>
+            </Link>
+            <Link href="/dashboard/user-bookings">
+              <div className="flex items-center cursor-pointer w-full mb-8">
+                <ClipboardList size={20} />
+                <span
+                  className={`pl-3 
+              text-[black]
+             md:block hidden`}
+                >
+                  Booking Management
                 </span>
               </div>
             </Link>

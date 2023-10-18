@@ -10,7 +10,13 @@ import { RootState } from "../store";
 // Define a service using a base URL and expected endpoints
 export const api: any = createApi({
   reducerPath: "api",
-  tagTypes: ["user", "booking", "review", "service"],
+  tagTypes: [
+    "user",
+    "booking",
+    "review",
+    "service",
+    "all_booking",
+  ],
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.NEXT_PUBLIC_BACKEND_API,
     prepareHeaders: (headers, { getState }: any) => {
