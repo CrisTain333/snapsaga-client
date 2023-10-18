@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 import {
   BookUp2,
+  FilePlus2,
   LayoutDashboard,
   LogOut,
   PackageSearch,
@@ -126,6 +127,18 @@ const DashboardSidebar = () => {
              md:block hidden`}
                 >
                   Service Management
+                </span>
+              </div>
+            </Link>
+            <Link href="/dashboard/services/create-service">
+              <div className="flex items-center cursor-pointer w-full mb-8">
+                <FilePlus2 size={20} />
+                <span
+                  className={`pl-3 
+              text-[black]
+             md:block hidden`}
+                >
+                  Create Service
                 </span>
               </div>
             </Link>
