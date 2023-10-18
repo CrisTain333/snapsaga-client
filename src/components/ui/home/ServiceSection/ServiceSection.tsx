@@ -5,7 +5,7 @@ import LoaderCard from "../../ServiceCard/LoaderCard";
 import ServiceCard from "../../ServiceCard/ServiceCard";
 
 const ServiceSection = () => {
-  const { data, isLoading } = useGetServiceQuery();
+  const { data, isLoading } = useGetServiceQuery(1);
 
   return (
     <section className="py-14">

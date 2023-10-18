@@ -4,7 +4,9 @@ import {
   BookUp2,
   LayoutDashboard,
   LogOut,
+  PackageSearch,
   PieChart,
+  ServerCog,
   User,
   UserCircle2,
   UserCog,
@@ -109,6 +111,21 @@ const DashboardSidebar = () => {
              md:block hidden`}
                 >
                   User Management
+                </span>
+              </div>
+            </Link>
+            <Link href="/dashboard/services">
+              <div className="flex items-center cursor-pointer w-full mb-8">
+                <ServerCog
+                  size={20}
+                  // color={active === 2 ? "red" : ""}
+                />
+                <span
+                  className={`pl-3 
+              text-[black]
+             md:block hidden`}
+                >
+                  Service Management
                 </span>
               </div>
             </Link>

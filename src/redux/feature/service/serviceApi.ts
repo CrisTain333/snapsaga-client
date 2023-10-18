@@ -5,10 +5,12 @@ import { api } from "../../api/api";
 export const serviceApi = api.injectEndpoints({
   endpoints: (builder: any) => ({
     getService: builder.query({
-      query: () => ({
-        url: `/service/best-services`,
+      query: (page: number) => ({
+        url: `/service/best-services?page=${page}`,
         method: "GET",
       }),
+
+      providesTags: ["service"],
     }),
   }),
 });

@@ -45,8 +45,6 @@ const page = () => {
   const [phone, setPhone] = useState<any>();
   const [address, setAddress] = useState();
 
-  console.log(user);
-
   const router = useRouter();
   React.useEffect(() => {
     if (isLoading === false) {
@@ -59,7 +57,6 @@ const page = () => {
   const { data } = useGetAllUserQuery();
   const [deleteUser] = useDeleteProfileDataMutation();
   const [updateData] = useUpdateProfileMutation();
-  console.log(data);
 
   const handleDeleteUser = async (userId: string) => {
     console.log(userId);
@@ -181,8 +178,6 @@ const page = () => {
                           </Label>
                           <Input
                             id="name"
-                            // value="Pedro Duarte"
-                            // defaultValue={user?.name}
                             value={name}
                             onChange={(e: any) =>
                               setName(e.target.value)
