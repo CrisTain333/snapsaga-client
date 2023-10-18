@@ -42,7 +42,7 @@ const page = () => {
   const { toast } = useToast();
   const [name, setName] = useState();
   const [email, setEmail] = useState();
-  const [phone, setPhone] = useState();
+  const [phone, setPhone] = useState<any>();
   const [address, setAddress] = useState();
 
   console.log(user);
@@ -92,16 +92,16 @@ const page = () => {
     });
   };
 
-  const handleUpdateUser = async () => {
+  const handleUpdateUser = async (id: any) => {
     const data = {
       name,
       email,
-      phone,
-      address,
+      phone: phone?.toString(),
+      location: address,
     };
 
     const config = {
-      email,
+      id: id,
       data,
     };
 
@@ -118,8 +118,6 @@ const page = () => {
         title: error?.data?.message,
       });
     }
-
-    console.log(error);
   };
 
   return (
@@ -250,7 +248,11 @@ const page = () => {
                       </div>
                       <SheetFooter>
                         {/* <SheetClose asChild> */}
-                        <Button onClick={handleUpdateUser}>
+                        <Button
+                          onClick={() =>
+                            handleUpdateUser(e?.id)
+                          }
+                        >
                           Save changes
                         </Button>
                         {/* </SheetClose> */}

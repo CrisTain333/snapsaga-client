@@ -42,9 +42,9 @@ export const userApi = api.injectEndpoints({
       invalidatesTags: ["user"],
     }),
     updateProfile: builder.mutation({
-      query: ({ email, data }: any) => ({
-        url: `/user/${email}`,
-        method: `POST`,
+      query: ({ id, data }: any) => ({
+        url: `/user/${id}`,
+        method: `PATCH`,
         body: data,
       }),
       invalidatesTags: ["user"],
