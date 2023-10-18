@@ -3,10 +3,11 @@
 import {
   useDeleteProfileDataMutation,
   useGetAllUserQuery,
+  useUpdateProfileMutation,
 } from "@/redux/feature/user/userApi";
 import { useAppSelector } from "@/redux/hooks";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useState } from "react";
 import {
   Table,
   TableBody,
@@ -16,6 +17,18 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetDescription,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { Trash2, UserCog2 } from "lucide-react";
 import swal from "sweetalert";
@@ -27,6 +40,10 @@ const page = () => {
   );
 
   const { toast } = useToast();
+  const [name, setName] = useState();
+  const [email, setEmail] = useState();
+  const [phone, setPhone] = useState();
+  const [address, setAddress] = useState();
 
   console.log(user);
 
@@ -40,8 +57,8 @@ const page = () => {
   }, [user, isLoading]);
 
   const { data } = useGetAllUserQuery();
-  const [deleteUser, { isLoading: deleteLoader }] =
-    useDeleteProfileDataMutation();
+  const [deleteUser] = useDeleteProfileDataMutation();
+  const [updateData] = useUpdateProfileMutation();
   console.log(data);
 
   const handleDeleteUser = async (userId: string) => {
@@ -70,9 +87,39 @@ const page = () => {
           });
         }
       } else {
-        swal("Your User is safe!");
+        swal("User is safe!");
       }
     });
+  };
+
+  const handleUpdateUser = async () => {
+    const data = {
+      name,
+      email,
+      phone,
+      address,
+    };
+
+    const config = {
+      email,
+      data,
+    };
+
+    const response = await updateData(config);
+    const { data: responseData, error } = response;
+    if (responseData?.statusCode === 200) {
+      swal("User has been updated !", {
+        icon: "success",
+      });
+    } else {
+      toast({
+        variant: "destructive",
+        duration: 2500,
+        title: error?.data?.message,
+      });
+    }
+
+    console.log(error);
   };
 
   return (
@@ -96,17 +143,121 @@ const page = () => {
               <TableCell className="font-medium">
                 {e?.name}
               </TableCell>
-              <TableCell>${e?.email}</TableCell>
+              <TableCell>{e?.email}</TableCell>
               <TableCell>{e?.role}</TableCell>
               <TableCell className="text-right">
                 <div className="flex items-center justify-end space-x-5">
-                  <Button
-                    size={"sm"}
-                    className="text-xs bg-yellow-400 text-white flex items-center justify-center"
-                  >
-                    <UserCog2 size={15} />
-                    <span className="ml-1">Update</span>
-                  </Button>
+                  <Sheet>
+                    <SheetTrigger>
+                      <Button
+                        size={"sm"}
+                        className="text-xs bg-yellow-400 text-white flex items-center justify-center"
+                        onClick={() => {
+                          setName(e?.name);
+                          setEmail(e?.email);
+                          setPhone(e?.phone);
+                          setAddress(e?.location);
+                        }}
+                      >
+                        <UserCog2 size={15} />
+                        <span className="ml-1">Update</span>
+                      </Button>
+                    </SheetTrigger>
+                    <SheetContent>
+                      <SheetHeader>
+                        <SheetTitle>
+                          Edit profile
+                        </SheetTitle>
+                        <SheetDescription>
+                          Make changes to user profile .
+                          Click save when you're done.
+                        </SheetDescription>
+                      </SheetHeader>
+                      <div className="grid gap-4 py-4">
+                        <div className="grid grid-cols-4 items-center gap-4">
+                          <Label
+                            htmlFor="name"
+                            className="text-right"
+                          >
+                            Name
+                          </Label>
+                          <Input
+                            id="name"
+                            // value="Pedro Duarte"
+                            // defaultValue={user?.name}
+                            value={name}
+                            onChange={(e: any) =>
+                              setName(e.target.value)
+                            }
+                            className="col-span-3"
+                          />
+                        </div>
+                        <div className="grid grid-cols-4 items-center gap-4">
+                          <Label
+                            htmlFor="email"
+                            className="text-right"
+                          >
+                            email
+                          </Label>
+                          <Input
+                            id="email"
+                            name="email"
+                            readOnly
+                            value={email}
+                            onChange={(e: any) =>
+                              setEmail(e.target.value)
+                            }
+                            className="col-span-3"
+                          />
+                        </div>
+                        <div className="grid grid-cols-4 items-center gap-4">
+                          <Label
+                            htmlFor="phone"
+                            className="text-right"
+                          >
+                            Phone
+                          </Label>
+                          <Input
+                            id="phone"
+                            name="phone"
+                            // readOnly
+                            // defaultValue={e?.phone}
+                            value={phone}
+                            onChange={(e: any) =>
+                              setPhone(e.target.value)
+                            }
+                            className="col-span-3"
+                          />
+                        </div>
+                        <div className="grid grid-cols-4 items-center gap-4">
+                          <Label
+                            htmlFor="address"
+                            className="text-right"
+                          >
+                            Address
+                          </Label>
+                          <Input
+                            id="address"
+                            name="address"
+                            // readOnly
+                            value={address}
+                            onChange={(e: any) =>
+                              setAddress(e.target.value)
+                            }
+                            className="col-span-3"
+                          />
+                        </div>
+                      </div>
+                      <SheetFooter>
+                        {/* <SheetClose asChild> */}
+                        <Button onClick={handleUpdateUser}>
+                          Save changes
+                        </Button>
+                        {/* </SheetClose> */}
+                      </SheetFooter>
+                    </SheetContent>
+                  </Sheet>
+
                   <Button
                     onClick={() => handleDeleteUser(e?.id)}
                     size={"sm"}

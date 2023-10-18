@@ -7,6 +7,7 @@ import {
   PieChart,
   User,
   UserCircle2,
+  UserCog,
 } from "lucide-react";
 import { logout } from "@/redux/feature/user/userSlice";
 import {
@@ -98,7 +99,7 @@ const DashboardSidebar = () => {
             </Link>
             <Link href="/dashboard/users">
               <div className="flex items-center cursor-pointer w-full mb-8">
-                <User
+                <UserCog
                   size={20}
                   // color={active === 2 ? "red" : ""}
                 />

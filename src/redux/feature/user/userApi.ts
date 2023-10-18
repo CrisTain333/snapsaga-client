@@ -41,6 +41,14 @@ export const userApi = api.injectEndpoints({
       }),
       invalidatesTags: ["user"],
     }),
+    updateProfile: builder.mutation({
+      query: ({ email, data }: any) => ({
+        url: `/user/${email}`,
+        method: `POST`,
+        body: data,
+      }),
+      invalidatesTags: ["user"],
+    }),
     getAllUser: builder.query({
       query: () => ({
         url: `/user/all-users`,
@@ -54,6 +62,7 @@ export const userApi = api.injectEndpoints({
 export const {
   useRegisterUserMutation,
   useLoginUserMutation,
+  useUpdateProfileMutation,
   useUpdateProfilePictureMutation,
   useUpdateProfileDataMutation,
   useDeleteProfileDataMutation,
