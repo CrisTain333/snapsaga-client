@@ -15,6 +15,10 @@ import {
 import { category } from "@/constants/categories";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
+import { useCreateServiceMutation } from "@/redux/feature/service/serviceApi";
+import { useToast } from "@/components/ui/use-toast";
+import { ToastAction } from "@/components/ui/toast";
+import Loader from "@/components/Loader/Loader";
 const page = () => {
   const [image, setImage] = useState<any>([]);
   const [serviceData, setServiceData] = useState<any>({
@@ -29,20 +33,68 @@ const page = () => {
   const handleImageChange = (e: any) => {
     e.preventDefault();
     let files = Array.from(e.target.files);
-    setImage(files);
+    setImage((prevImages: any) => [
+      ...prevImages,
+      ...files,
+    ]);
   };
+
+  const { toast } = useToast();
+
+  const [createProduct, { isLoading }] =
+    useCreateServiceMutation();
 
   const handleCreateService = async (e: any) => {
     e.preventDefault();
 
+    if (
+      serviceData.title === "" ||
+      serviceData.price === null ||
+      serviceData.category === "" ||
+      serviceData.availability === "" ||
+      serviceData.description === ""
+    ) {
+      // Show a toast message for validation error
+      toast({
+        title: "Please fill in all fields",
+        variant: "destructive",
+      });
+
+      return;
+    }
+
     const Form = new FormData();
-    Form.append("banner", image);
+    image.forEach((image: any) => {
+      Form.append("banner", image);
+    });
     Form.append("title", serviceData.title);
     Form.append("price", serviceData.price);
     Form.append("category", serviceData.category);
     Form.append("availability", serviceData.availability);
     Form.append("rating", serviceData.rating);
     Form.append("description", serviceData.description);
+
+    const response = await createProduct(Form);
+    const { data: responseData, error } = response;
+    if (responseData?.statusCode === 200) {
+      toast({
+        title: responseData?.message,
+      });
+    } else {
+      toast({
+        variant: "destructive",
+        duration: 2500,
+        title: error?.data?.message,
+        action: (
+          <ToastAction
+            altText="Try again"
+            // onClick={() => form.reset()}
+          >
+            Try again
+          </ToastAction>
+        ),
+      });
+    }
   };
 
   const handleAvailabilityChange = (e: any) => {
@@ -65,7 +117,13 @@ const page = () => {
             <div className="col-span-12  space-y-2">
               <div className="grid grid-cols-12 gap-x-0 md:gap-x-5">
                 <div className="col-span-12 md:col-span-4">
-                  <Label className="text-base">Title</Label>
+                  <Label className="text-base">
+                    Title{" "}
+                    <span className=" text-red-500">
+                      {" "}
+                      *
+                    </span>
+                  </Label>
                   <Input
                     value={serviceData?.title}
                     onChange={(e) =>
@@ -82,7 +140,13 @@ const page = () => {
                   />
                 </div>
                 <div className="col-span-12 md:col-span-4">
-                  <Label className="text-base">Price</Label>
+                  <Label className="text-base">
+                    Price{" "}
+                    <span className=" text-red-500">
+                      {" "}
+                      *
+                    </span>
+                  </Label>
                   <Input
                     placeholder="Service price"
                     type="number"
@@ -100,7 +164,11 @@ const page = () => {
                 </div>
                 <div className="col-span-12 md:col-span-4">
                   <Label className="text-base">
-                    Banner
+                    Banner{" "}
+                    <span className=" text-red-500">
+                      {" "}
+                      *
+                    </span>
                   </Label>
                   <Input
                     onChange={handleImageChange}
@@ -113,7 +181,11 @@ const page = () => {
               <div className="grid grid-cols-12 gap-x-0 md:gap-x-5">
                 <div className="col-span-12 md:col-span-4">
                   <Label className="text-base">
-                    Category
+                    Category{" "}
+                    <span className=" text-red-500">
+                      {" "}
+                      *
+                    </span>
                   </Label>
 
                   <Select
@@ -147,7 +219,11 @@ const page = () => {
                 </div>
                 <div className="col-span-12 md:col-span-4">
                   <Label className="text-base">
-                    Availability
+                    Availability{" "}
+                    <span className=" text-red-500">
+                      {" "}
+                      *
+                    </span>
                   </Label>
                   <Select
                     value={
@@ -218,7 +294,8 @@ const page = () => {
             </div>
             <div className="col-span-12 w-full  space-y-2 mt-5">
               <Label className="text-base">
-                Description
+                Description{" "}
+                <span className=" text-red-500"> *</span>
               </Label>
               <Textarea
                 value={serviceData?.description}
@@ -238,9 +315,28 @@ const page = () => {
               />
             </div>
 
-            <div className="col-span-12">
+            <div className="col-span-12 mt-5 ">
               <div className="flex items-center justify-center">
-                <Button type="submit">Create</Button>
+                <Button
+                  disabled={isLoading}
+                  type="submit"
+                >
+                  {isLoading ? (
+                    <>
+                      <div className="flex items-center justify-center">
+                        <Loader
+                          size="30"
+                          color="white"
+                        />
+                        <span className="ml-1">
+                          Creating...
+                        </span>
+                      </div>
+                    </>
+                  ) : (
+                    <>create</>
+                  )}
+                </Button>
               </div>
             </div>
           </div>
