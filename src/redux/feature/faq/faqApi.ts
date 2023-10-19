@@ -12,13 +12,21 @@ export const faqApi = api.injectEndpoints({
       }),
       invalidatesTags: ["faq"],
     }),
-    // cancelBooking: builder.mutation({
-    //   query: (id: any) => ({
-    //     url: `/booking/${id}`,
-    //     method: `DELETE`,
-    //   }),
-    //   invalidatesTags: ["booking"],
-    // }),
+    updateFaq: builder.mutation({
+      query: ({ id, data }: any) => ({
+        url: `/faq/${id}`,
+        method: `PATCH`,
+        body: data,
+      }),
+      invalidatesTags: ["faq"],
+    }),
+    deleteFaq: builder.mutation({
+      query: (id: any) => ({
+        url: `/faq/${id}`,
+        method: `DELETE`,
+      }),
+      invalidatesTags: ["faq"],
+    }),
     getFaq: builder.query({
       query: () => ({
         url: `/faq`,
@@ -31,7 +39,8 @@ export const faqApi = api.injectEndpoints({
 });
 
 export const {
-  //   useCancelBookingMutation,
+  useDeleteFaqMutation,
   useCreateFaqMutation,
+  useUpdateFaqMutation,
   useGetFaqQuery,
 } = faqApi;
