@@ -17,6 +17,7 @@ export const api: any = createApi({
     "service",
     "all_booking",
     "admins",
+    "faq",
   ],
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.NEXT_PUBLIC_BACKEND_API,

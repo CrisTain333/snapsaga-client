@@ -1,8 +1,23 @@
 "use client";
 
+import { useGetFaqQuery } from "@/redux/feature/faq/faqApi";
 import React, { useState } from "react";
 
 const page = () => {
+  const { data, isLoading } = useGetFaqQuery();
+
+  const [activeItems, setActiveItems] = useState<any>(
+    Array(data?.data?.length).fill(false)
+  );
+
+  const handleToggle = (index: any) => {
+    const newActiveItems = [...activeItems];
+    newActiveItems[index] = !newActiveItems[index];
+    setActiveItems(newActiveItems);
+  };
+
+  console.log(data);
+
   return (
     <section className="relative z-20 overflow-hidden bg-white pt-20 pb-12 lg:pt-[120px] lg:pb-[90px]">
       <div className="container mx-auto">
@@ -19,35 +34,16 @@ const page = () => {
           </div>
         </div>
 
-        <div className="-mx-4 flex flex-wrap">
-          <div className="w-full px-4 lg:w-1/2">
+        <div className="-mx-4 grid grid-cols-12 gap-5">
+          {data?.data?.map((e: any, index: any) => (
             <AccordionItem
-              header="How long we deliver your first blog post?"
-              text="It takes 2-3 weeks to get your first blog post ready. That includes the in-depth research & creation of your monthly content marketing strategy that we do before writing your first blog post, Ipsum available ."
+              key={index}
+              header={e?.title}
+              text={e?.content}
+              active={activeItems[index]}
+              onToggle={() => handleToggle(index)}
             />
-            <AccordionItem
-              header="How long we deliver your first blog post?"
-              text="It takes 2-3 weeks to get your first blog post ready. That includes the in-depth research & creation of your monthly content marketing strategy that we do before writing your first blog post, Ipsum available ."
-            />
-            <AccordionItem
-              header="How long we deliver your first blog post?"
-              text="It takes 2-3 weeks to get your first blog post ready. That includes the in-depth research & creation of your monthly content marketing strategy that we do before writing your first blog post, Ipsum available ."
-            />
-          </div>
-          <div className="w-full px-4 lg:w-1/2">
-            <AccordionItem
-              header="How long we deliver your first blog post?"
-              text="It takes 2-3 weeks to get your first blog post ready. That includes the in-depth research & creation of your monthly content marketing strategy that we do before writing your first blog post, Ipsum available ."
-            />
-            <AccordionItem
-              header="How long we deliver your first blog post?"
-              text="It takes 2-3 weeks to get your first blog post ready. That includes the in-depth research & creation of your monthly content marketing strategy that we do before writing your first blog post, Ipsum available ."
-            />
-            <AccordionItem
-              header="How long we deliver your first blog post?"
-              text="It takes 2-3 weeks to get your first blog post ready. That includes the in-depth research & creation of your monthly content marketing strategy that we do before writing your first blog post, Ipsum available ."
-            />
-          </div>
+          ))}
         </div>
       </div>
 
@@ -97,18 +93,17 @@ const page = () => {
 
 export default page;
 
-const AccordionItem = ({ header, text }: any) => {
-  const [active, setActive] = useState(false);
-
-  const handleToggle = () => {
-    // event.preventDefault();
-    setActive(!active);
-  };
+const AccordionItem = ({
+  header,
+  text,
+  active,
+  onToggle,
+}: any) => {
   return (
-    <div className="single-faq mb-8 w-full rounded-lg border border-[#F3F4FE] bg-white p-4 sm:p-8 lg:px-6 xl:px-8">
+    <div className="col-span-12 single-faq mb-8 w-full rounded-lg border border-[#F3F4FE] bg-white p-4 sm:p-8 lg:px-6 xl:px-8">
       <button
         className={`faq-btn flex w-full text-left`}
-        onClick={() => handleToggle()}
+        onClick={onToggle}
       >
         <div className="mr-5 flex h-10 w-full max-w-[40px] items-center justify-center rounded-lg  bg-opacity-5 text-primary">
           <svg
