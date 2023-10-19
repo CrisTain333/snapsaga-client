@@ -254,6 +254,18 @@ const DashboardSidebar = () => {
                 </span>
               </div>
             </Link>
+            <Link href="/dashboard/manage-faq">
+              <div className="flex items-center cursor-pointer w-full mb-8">
+                <HelpCircle size={20} />
+                <span
+                  className={`pl-3 
+              text-[black]
+             md:block hidden`}
+                >
+                  Manage FAQ
+                </span>
+              </div>
+            </Link>
           </>
         )}
 
