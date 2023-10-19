@@ -2,8 +2,8 @@
 
 import {
   useDeleteProfileDataMutation,
+  useGetAllAdminQuery,
   useGetAllUserQuery,
-  useMakeAdminMutation,
   useUpdateProfileMutation,
 } from "@/redux/feature/user/userApi";
 import { useAppSelector } from "@/redux/hooks";
@@ -39,7 +39,6 @@ const page = () => {
   const { user, isLoading, token } = useAppSelector(
     (state) => state.auth
   );
-  console.log(user);
   const [currentPage, setCurrentPage] = React.useState(1);
   const [totalPage, setTotalPage] = React.useState();
 
@@ -48,26 +47,21 @@ const page = () => {
   const [email, setEmail] = useState();
   const [phone, setPhone] = useState<any>();
   const [address, setAddress] = useState();
-  const { data } = useGetAllUserQuery(currentPage);
+  const { data } = useGetAllAdminQuery(currentPage);
   console.log(data);
   const router = useRouter();
   React.useEffect(() => {
-    // if (isLoading === false) {
-    //   if (
-    //     user?.role !== "admin" ||
-    //     user?.role !== "super_admin"
-    //   ) {
-    //     router.push("/");
-    //   }
-    // }
+    if (isLoading === false) {
+      if (user?.role !== "super_admin") {
+        router.push("/");
+      }
+    }
     if (data) {
       console.log(data);
       setCurrentPage(data?.meta?.page);
       setTotalPage(data?.meta?.total);
     }
   }, [user, isLoading, data]);
-
-  const [makeAdmin] = useMakeAdminMutation();
 
   const [deleteUser] = useDeleteProfileDataMutation();
   const [updateData] = useUpdateProfileMutation();
@@ -120,29 +114,6 @@ const page = () => {
     const { data: responseData, error } = response;
     if (responseData?.statusCode === 200) {
       swal("User has been updated !", {
-        icon: "success",
-      });
-    } else {
-      toast({
-        variant: "destructive",
-        duration: 2500,
-        title: error?.data?.message,
-      });
-    }
-  };
-
-  const handleMakeAdmin = async (email: string) => {
-    console.log(email);
-    const data = {
-      email: email,
-      role: {
-        role: "admin",
-      },
-    };
-    const response = await makeAdmin(data);
-    const { data: responseData, error } = response;
-    if (responseData?.statusCode === 200) {
-      swal("User Role has  been updated !", {
         icon: "success",
       });
     } else {
@@ -246,25 +217,6 @@ const page = () => {
               <TableCell>{e?.role}</TableCell>
               <TableCell className="text-right">
                 <div className="flex items-center justify-end space-x-5">
-                  {user?.role === "super_admin" && (
-                    <>
-                      {e?.role !== "admin" && (
-                        <Button
-                          onClick={() =>
-                            handleMakeAdmin(e?.email)
-                          }
-                          size={"sm"}
-                          className="text-xs bg-blue-400 text-white flex items-center justify-center"
-                        >
-                          {/* <Trash2 size={15} /> */}
-                          <span className="ml-1">
-                            Make Admin
-                          </span>
-                        </Button>
-                      )}
-                    </>
-                  )}
-
                   <Sheet>
                     <SheetTrigger>
                       <Button

@@ -12,6 +12,7 @@ import {
   User,
   UserCircle2,
   UserCog,
+  Users,
 } from "lucide-react";
 import { logout } from "@/redux/feature/user/userSlice";
 import {
@@ -91,7 +92,8 @@ const DashboardSidebar = () => {
           <>
             <Link href="/dashboard/profile">
               <div className="flex items-center cursor-pointer w-full mb-8">
-                <UserCircle2 size={20} />
+                {/* <UserCircle2 size={20} /> */}
+                <Users size={20} />
                 <span
                   className={`pl-3 
               text-[black]
@@ -152,6 +154,90 @@ const DashboardSidebar = () => {
              md:block hidden`}
                 >
                   Booking Management
+                </span>
+              </div>
+            </Link>
+          </>
+        )}
+
+        {user?.role === "super_admin" && (
+          <>
+            <Link href="/dashboard/profile">
+              <div className="flex items-center cursor-pointer w-full mb-8">
+                {/* <UserCircle2 size={20} /> */}
+                <UserCircle2 size={20} />
+                <span
+                  className={`pl-3 
+              text-[black]
+             md:block hidden`}
+                >
+                  Profile
+                </span>
+              </div>
+            </Link>
+            <Link href="/dashboard/users">
+              <div className="flex items-center cursor-pointer w-full mb-8">
+                <Users
+                  size={20}
+                  // color={active === 2 ? "red" : ""}
+                />
+                <span
+                  className={`pl-3 
+              text-[black]
+             md:block hidden`}
+                >
+                  User Management
+                </span>
+              </div>
+            </Link>
+            <Link href="/dashboard/services">
+              <div className="flex items-center cursor-pointer w-full mb-8">
+                <ServerCog
+                  size={20}
+                  // color={active === 2 ? "red" : ""}
+                />
+                <span
+                  className={`pl-3 
+              text-[black]
+             md:block hidden`}
+                >
+                  Service Management
+                </span>
+              </div>
+            </Link>
+            <Link href="/dashboard/services/create-service">
+              <div className="flex items-center cursor-pointer w-full mb-8">
+                <FilePlus2 size={20} />
+                <span
+                  className={`pl-3 
+              text-[black]
+             md:block hidden`}
+                >
+                  Create Service
+                </span>
+              </div>
+            </Link>
+            <Link href="/dashboard/user-bookings">
+              <div className="flex items-center cursor-pointer w-full mb-8">
+                <ClipboardList size={20} />
+                <span
+                  className={`pl-3 
+              text-[black]
+             md:block hidden`}
+                >
+                  Booking Management
+                </span>
+              </div>
+            </Link>
+            <Link href="/dashboard/manage-admin">
+              <div className="flex items-center cursor-pointer w-full mb-8">
+                <UserCog size={20} />
+                <span
+                  className={`pl-3 
+              text-[black]
+             md:block hidden`}
+                >
+                  Admin Management
                 </span>
               </div>
             </Link>

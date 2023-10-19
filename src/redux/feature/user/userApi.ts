@@ -49,12 +49,27 @@ export const userApi = api.injectEndpoints({
       }),
       invalidatesTags: ["user"],
     }),
+    makeAdmin: builder.mutation({
+      query: ({ email, role }: any) => ({
+        url: `/user/admin/update-role/${email}`,
+        method: `PATCH`,
+        body: role,
+      }),
+      invalidatesTags: ["user"],
+    }),
     getAllUser: builder.query({
       query: (page: any) => ({
         url: `/user/all-users?page=${page}`,
         method: "GET",
       }),
       providesTags: ["user"],
+    }),
+    getAllAdmin: builder.query({
+      query: (page: any) => ({
+        url: `/user/admins?page=${page}`,
+        method: "GET",
+      }),
+      providesTags: ["admins", "user"],
     }),
   }),
 });
@@ -63,8 +78,10 @@ export const {
   useRegisterUserMutation,
   useLoginUserMutation,
   useUpdateProfileMutation,
+  useMakeAdminMutation,
   useUpdateProfilePictureMutation,
   useUpdateProfileDataMutation,
   useDeleteProfileDataMutation,
   useGetAllUserQuery,
+  useGetAllAdminQuery,
 } = userApi;
