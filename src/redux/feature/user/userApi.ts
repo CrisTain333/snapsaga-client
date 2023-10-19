@@ -50,8 +50,8 @@ export const userApi = api.injectEndpoints({
       invalidatesTags: ["user"],
     }),
     getAllUser: builder.query({
-      query: () => ({
-        url: `/user/all-users`,
+      query: (page: any) => ({
+        url: `/user/all-users?page=${page}`,
         method: "GET",
       }),
       providesTags: ["user"],
