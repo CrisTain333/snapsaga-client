@@ -250,12 +250,12 @@ export default () => {
                   key={idx}
                   className="text-gray-700 hover:text-gray-900 text-lg font-medium"
                 >
-                  <a
+                  <Link
                     href={item.path}
                     className="block"
                   >
                     {item.title}
-                  </a>
+                  </Link>
                 </li>
               );
             })}
