@@ -80,7 +80,7 @@ const DashboardSidebar = () => {
               text-[black]
              md:block hidden`}
                 >
-                  Track Order
+                  Track Bookings
                 </span>
               </div>
             </Link>
