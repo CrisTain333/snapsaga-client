@@ -257,7 +257,7 @@ const DashboardSidebar = () => {
           </>
         )}
 
-        <div
+        {/* <div
           className="single_item flex items-center cursor-pointer w-full mb-8"
           onClick={() => dispatch(logout)}
         >
@@ -272,7 +272,7 @@ const DashboardSidebar = () => {
           >
             Log out
           </span>
-        </div>
+        </div> */}
       </div>
     </div>
   );
