@@ -4,6 +4,7 @@ import {
   useDeleteProfileDataMutation,
   useGetAllAdminQuery,
   useGetAllUserQuery,
+  useMakeAdminMutation,
   useUpdateProfileMutation,
 } from "@/redux/feature/user/userApi";
 import { useAppSelector } from "@/redux/hooks";
@@ -48,7 +49,6 @@ const page = () => {
   const [phone, setPhone] = useState<any>();
   const [address, setAddress] = useState();
   const { data } = useGetAllAdminQuery(currentPage);
-  console.log(data);
   const router = useRouter();
   React.useEffect(() => {
     if (isLoading === false) {
@@ -57,7 +57,6 @@ const page = () => {
       }
     }
     if (data) {
-      console.log(data);
       setCurrentPage(data?.meta?.page);
       setTotalPage(data?.meta?.total);
     }
@@ -125,6 +124,8 @@ const page = () => {
     }
   };
 
+  const [makeAdmin] = useMakeAdminMutation();
+
   const handleNext = () => {
     setCurrentPage((prev) => prev + 1);
   };
@@ -136,6 +137,29 @@ const page = () => {
   for (let i = 1; i <= totalPage!; i++) {
     pageNumbers.push(i);
   }
+
+  const handleMakeAdmin = async (email: string) => {
+    console.log(email);
+    const data = {
+      email: email,
+      role: {
+        role: "user",
+      },
+    };
+    const response = await makeAdmin(data);
+    const { data: responseData, error } = response;
+    if (responseData?.statusCode === 200) {
+      swal("Admin Role has been removed !", {
+        icon: "success",
+      });
+    } else {
+      toast({
+        variant: "destructive",
+        duration: 2500,
+        title: error?.data?.message,
+      });
+    }
+  };
 
   return (
     <div>
@@ -217,118 +241,18 @@ const page = () => {
               <TableCell>{e?.role}</TableCell>
               <TableCell className="text-right">
                 <div className="flex items-center justify-end space-x-5">
-                  <Sheet>
-                    <SheetTrigger>
-                      <Button
-                        size={"sm"}
-                        className="text-xs bg-yellow-400 text-white flex items-center justify-center"
-                        onClick={() => {
-                          setName(e?.name);
-                          setEmail(e?.email);
-                          setPhone(e?.phone);
-                          setAddress(e?.location);
-                        }}
-                      >
-                        <UserCog2 size={15} />
-                        <span className="ml-1">Update</span>
-                      </Button>
-                    </SheetTrigger>
-                    <SheetContent>
-                      <SheetHeader>
-                        <SheetTitle>
-                          Edit profile
-                        </SheetTitle>
-                        <SheetDescription>
-                          Make changes to user profile .
-                          Click save when you're done.
-                        </SheetDescription>
-                      </SheetHeader>
-                      <div className="grid gap-4 py-4">
-                        <div className="grid grid-cols-4 items-center gap-4">
-                          <Label
-                            htmlFor="name"
-                            className="text-right"
-                          >
-                            Name
-                          </Label>
-                          <Input
-                            id="name"
-                            value={name}
-                            onChange={(e: any) =>
-                              setName(e.target.value)
-                            }
-                            className="col-span-3"
-                          />
-                        </div>
-                        <div className="grid grid-cols-4 items-center gap-4">
-                          <Label
-                            htmlFor="email"
-                            className="text-right"
-                          >
-                            email
-                          </Label>
-                          <Input
-                            id="email"
-                            name="email"
-                            readOnly
-                            value={email}
-                            onChange={(e: any) =>
-                              setEmail(e.target.value)
-                            }
-                            className="col-span-3"
-                          />
-                        </div>
-                        <div className="grid grid-cols-4 items-center gap-4">
-                          <Label
-                            htmlFor="phone"
-                            className="text-right"
-                          >
-                            Phone
-                          </Label>
-                          <Input
-                            id="phone"
-                            name="phone"
-                            // readOnly
-                            // defaultValue={e?.phone}
-                            value={phone}
-                            onChange={(e: any) =>
-                              setPhone(e.target.value)
-                            }
-                            className="col-span-3"
-                          />
-                        </div>
-                        <div className="grid grid-cols-4 items-center gap-4">
-                          <Label
-                            htmlFor="address"
-                            className="text-right"
-                          >
-                            Address
-                          </Label>
-                          <Input
-                            id="address"
-                            name="address"
-                            // readOnly
-                            value={address}
-                            onChange={(e: any) =>
-                              setAddress(e.target.value)
-                            }
-                            className="col-span-3"
-                          />
-                        </div>
-                      </div>
-                      <SheetFooter>
-                        {/* <SheetClose asChild> */}
-                        <Button
-                          onClick={() =>
-                            handleUpdateUser(e?.id)
-                          }
-                        >
-                          Save changes
-                        </Button>
-                        {/* </SheetClose> */}
-                      </SheetFooter>
-                    </SheetContent>
-                  </Sheet>
+                  <Button
+                    onClick={() =>
+                      handleMakeAdmin(e?.email)
+                    }
+                    size={"sm"}
+                    className="text-xs bg-blue-400 text-white flex items-center justify-center"
+                  >
+                    {/* <Trash2 size={15} /> */}
+                    <span className="ml-1">
+                      Remove Admin
+                    </span>
+                  </Button>
 
                   <Button
                     onClick={() => handleDeleteUser(e?.id)}

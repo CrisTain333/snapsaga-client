@@ -10,6 +10,7 @@ export const userApi = api.injectEndpoints({
         method: `POST`,
         body: data,
       }),
+      invalidatesTags: ["user", "admins"],
     }),
     loginUser: builder.mutation({
       query: (credential: any) => ({
@@ -55,7 +56,7 @@ export const userApi = api.injectEndpoints({
         method: `PATCH`,
         body: role,
       }),
-      invalidatesTags: ["user"],
+      invalidatesTags: ["user", "admins"],
     }),
     getAllUser: builder.query({
       query: (page: any) => ({
