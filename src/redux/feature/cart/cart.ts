@@ -8,13 +8,13 @@ import { createSlice } from "@reduxjs/toolkit";
 //     JSON.parse(localStorage.getItem("cartItems")) || [];
 //   return cartItems;
 // };
-
+const cartDataFromLocalStorage =
+  getFromLocalStorage("cartItems");
 const cartSlice = createSlice({
   name: "cart",
-  initialState:
-    JSON.parse(
-      getFromLocalStorage("cartItems") as string
-    ) || [], // Initialize with cart items from local storage
+  initialState: cartDataFromLocalStorage
+    ? JSON.parse(cartDataFromLocalStorage)
+    : [], // Initialize with cart items from local storage
   reducers: {
     addToCart: (state: any, action) => {
       const newItem = action.payload;
