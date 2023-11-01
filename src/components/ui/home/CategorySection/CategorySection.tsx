@@ -19,9 +19,9 @@ const CategorySection = () => {
               </h2>
             </div>
 
-            <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
+            <div className="grid grid-cols-2 gap-5 sm:grid-cols-3">
               {category.map((ct) => (
-                <div className="block rounded-xl border border-gray-100 p-4 shadow-lg ">
+                <div className="block rounded-md border border-gray-100 p-4 shadow-lg ">
                   <h2 className="mt-2 font-bold">{ct}</h2>
                 </div>
               ))}
