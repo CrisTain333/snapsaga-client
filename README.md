@@ -11,6 +11,8 @@
 	<img width="50" src="https://github.com/marwin1991/profile-technology-icons/assets/136815194/5f8c622c-c217-4649-b0a9-7e0ee24bd704" alt="Next.js" title="Next.js"/>
 </div>
 
+## Admin Login :
+
 admin@gmail.com <br>
 123456
 
