@@ -23,9 +23,9 @@ const NewsSection = () => {
                   className="w-full"
                   alt="Louvre"
                 />
-                <a href="#!">
-                  <div className="absolute top-0 right-0 bottom-0 left-0 h-full w-full overflow-hidden bg-fixed opacity-0 transition duration-300 ease-in-out hover:opacity-100 bg-[hsla(0,0%,98.4%,.15)]"></div>
-                </a>
+                {/* <a href="#!"> */}
+                <div className="absolute top-0 right-0 bottom-0 left-0 h-full w-full overflow-hidden bg-fixed opacity-0 transition duration-300 ease-in-out hover:opacity-100 bg-[hsla(0,0%,98.4%,.15)]"></div>
+                {/* </a> */}
               </div>
             </div>
 
@@ -54,9 +54,9 @@ const NewsSection = () => {
                   className="w-full"
                   alt="Louvre"
                 />
-                <a href="#!">
+                {/* <a href="#!"> */}
                   <div className="absolute top-0 right-0 bottom-0 left-0 h-full w-full overflow-hidden bg-fixed opacity-0 transition duration-300 ease-in-out hover:opacity-100 bg-[hsla(0,0%,98.4%,.15)]"></div>
-                </a>
+                {/* </a> */}
               </div>
             </div>
 

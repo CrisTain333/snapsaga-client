@@ -1,4 +1,5 @@
 import { style } from "@/constants/colors";
+import Link from "next/link";
 import React from "react";
 
 const Hero = () => {
@@ -30,12 +31,12 @@ const Hero = () => {
               of storytelling through our lens.
             </p>
             <div className="items-center justify-center gap-x-3 space-y-3 sm:flex sm:space-y-0">
-              <a
-                href="javascript:void(0)"
+              <Link
+                href="/services"
                 className={`block py-2 px-4 text-white font-medium ${style.bg_gradient}  duration-150  rounded-lg shadow-lg hover:shadow-none`}
               >
                 Browse Services
-              </a>
+              </Link>
             </div>
           </div>
         </div>
