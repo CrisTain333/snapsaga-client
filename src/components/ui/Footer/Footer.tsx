@@ -7,28 +7,28 @@ import logo from "../../../assets/icons/logo.png";
 const Footer = () => {
   const footerNavs = [
     {
-      href: "javascript:void()",
+      href: "/",
       name: "About",
     },
     {
-      href: "javascript:void()",
+      href: "/",
       name: "Blog",
     },
     {
-      href: "javascript:void()",
+      href: "/",
       name: "",
     },
     {
-      href: "javascript:void()",
+      href: "/",
       name: "Team",
     },
     {
-      href: "javascript:void()",
+      href: "/",
       name: "Careers",
     },
 
     {
-      href: "javascript:void()",
+      href: "/",
       name: "Suuport",
     },
   ];
