@@ -185,7 +185,7 @@ const page = () => {
                       className={` text-white  text-sm font-semibold px-4 py-2 rounded w-auto cursor-pointer flex items-center ${
                         uploadLoader
                           ? "cursor-not-allowed bg-gray-300"
-                          : "bg-gradient-to-r from-[#13a0ef] to-[#c7ec01]"
+                          : "bg-[#13a0ef] "
                       }`}
                       disabled={uploadLoader}
                       onClick={changeProfilePicture}
@@ -215,7 +215,7 @@ const page = () => {
                   ) : (
                     <label
                       htmlFor="profile"
-                      className="bg-gradient-to-r from-[#13a0ef] to-[#c7ec01] text-white  text-sm font-semibold px-4 py-2 rounded w-auto cursor-pointer"
+                      className="bg-[#13a0ef] text-white  text-sm font-semibold px-4 py-2 rounded w-auto cursor-pointer"
                       // onClick={handleProfileUpdate}
                     >
                       Change Profile
@@ -330,7 +330,7 @@ const page = () => {
                 <div className="flex justify-center items-center pb-4">
                   <Button
                     onClick={handleSubmit}
-                    className={`w-[250px] h-[40px] border  text-center bg-gradient-to-r from-[#13a0ef] to-[#c7ec01] text-white rounded-md mt-8 cursor-pointer flex justify-center items-center text-base `}
+                    className={`w-[250px] h-[40px] border  text-center bg-[#13a0ef] text-white rounded-md mt-8 cursor-pointer flex justify-center items-center text-base `}
                     type="submit"
                     disabled={isLoading}
                   >
