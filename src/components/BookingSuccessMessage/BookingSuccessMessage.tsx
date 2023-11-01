@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import { Button } from "../ui/button";
 
 const OrderSuccess = () => {
   return (
@@ -13,9 +14,9 @@ const OrderSuccess = () => {
           </div>
           <div className="mb-36 flex items-center justify-center my-8 ">
             <Link href="/dashboard/booking">
-              <button className="bg-green-500 text-lg py-2 px-7 rounded-md text-white">
+              <Button className="bg-green-500 text-lg py-2 px-7 rounded-md text-white">
                 See Bookings
-              </button>
+              </Button>
             </Link>
           </div>
         </div>

@@ -166,7 +166,7 @@ const page = () => {
                   />
                 </div>
                 {selectedImage && (
-                  <button
+                  <Button
                     disabled={uploadLoader}
                     className={`absolute cursor-pointer font-bold -top-5 -right-2 ${
                       uploadLoader && "cursor-not-allowed"
@@ -174,14 +174,14 @@ const page = () => {
                     onClick={handleCancel}
                   >
                     ✕
-                  </button>
+                  </Button>
                 )}
               </div>
 
               <div>
                 <div className="p-3  mt-2 space-x-5">
                   {selectedImage ? (
-                    <button
+                    <Button
                       className={` text-white  text-sm font-semibold px-4 py-2 rounded w-auto cursor-pointer flex items-center ${
                         uploadLoader
                           ? "cursor-not-allowed bg-gray-300"
@@ -211,7 +211,7 @@ const page = () => {
                       ) : (
                         <>Upload</>
                       )}
-                    </button>
+                    </Button>
                   ) : (
                     <label
                       htmlFor="profile"

@@ -6,7 +6,7 @@ const SurveySection = () => {
       <h3 className="text-gray-800 text-center my-5 text-3xl font-semibold sm:text-4xl">
         Survey Form
       </h3>
-      <div className="bg-white border rounded-lg px-8 py-6 mx-auto my-8 max-w-2xl">
+      {/* <div className="bg-white border rounded-lg px-8 py-6 mx-auto my-8 max-w-2xl">
         <form>
           <div className="mb-4">
             <label
@@ -118,7 +118,7 @@ const SurveySection = () => {
             </button>
           </div>
         </form>
-      </div>
+      </div> */}
     </div>
   );
 };

@@ -88,7 +88,7 @@ const page = () => {
             Page {currentPage} of {pageNumbers?.length}
           </span>
           <div className="space-x-1">
-            <button
+            <Button
               onClick={() => handlePrevious()}
               title="previous"
               type="button"
@@ -110,8 +110,8 @@ const page = () => {
               >
                 <polyline points="15 18 9 12 15 6"></polyline>
               </svg>
-            </button>
-            <button
+            </Button>
+            <Button
               onClick={() => handleNext()}
               title="next"
               type="button"
@@ -133,7 +133,7 @@ const page = () => {
               >
                 <polyline points="9 18 15 12 9 6"></polyline>
               </svg>
-            </button>
+            </Button>
           </div>
         </div>
       </div>

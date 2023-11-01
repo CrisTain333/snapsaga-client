@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import { useGetFaqQuery } from "@/redux/feature/faq/faqApi";
 import React, { useState } from "react";
 
@@ -101,7 +102,7 @@ const AccordionItem = ({
 }: any) => {
   return (
     <div className="col-span-12 single-faq mb-8 w-full rounded-lg border border-[#F3F4FE] bg-white p-4 sm:p-8 lg:px-6 xl:px-8">
-      <button
+      <Button
         className={`faq-btn flex w-full text-left`}
         onClick={onToggle}
       >
@@ -146,7 +147,7 @@ const AccordionItem = ({
             {header}
           </h4>
         </div>
-      </button>
+      </Button>
 
       <div
         className={`pl-[62px] duration-200 ease-in-out ${
