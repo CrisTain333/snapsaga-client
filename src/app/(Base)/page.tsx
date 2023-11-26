@@ -17,7 +17,7 @@ const Home = () => {
       <CategorySection />
       {/* <SurveySection /> */}
       <Testimonials />
-      <NewsSection />
+      {/* <NewsSection /> */}
       {/* <GallerySection /> */}
     </div>
   );
