@@ -4,76 +4,72 @@ const NewsSection = () => {
   return (
     <div>
       {/* <!-- Container for demo purpose --> */}
-      <div className="container my-24 mx-auto md:px-6">
-        {/* <!-- Section: Design Block --> */}
-        <section className="mb-32 text-center md:text-left">
-          <h2 className="mb-12 text-center text-3xl font-bold">
-            Latest News
-          </h2>
-
-          <div className="mb-6 flex flex-wrap">
-            <div className="mb-6 ml-auto w-full shrink-0 grow-0 basis-auto px-3 md:mb-0 md:w-3/12">
-              <div
-                className="relative mb-6 overflow-hidden rounded-lg bg-cover bg-no-repeat shadow-lg dark:shadow-black/20"
-                data-te-ripple-init
-                data-te-ripple-color="light"
-              >
-                <img
-                  src="https://mdbcdn.b-cdn.net/img/new/standard/city/018.jpg"
-                  className="w-full"
-                  alt="Louvre"
-                />
-                {/* <a href="#!"> */}
-                <div className="absolute top-0 right-0 bottom-0 left-0 h-full w-full overflow-hidden bg-fixed opacity-0 transition duration-300 ease-in-out hover:opacity-100 bg-[hsla(0,0%,98.4%,.15)]"></div>
-                {/* </a> */}
-              </div>
-            </div>
-
-            <div className="mb-6 mr-auto w-full shrink-0 grow-0 basis-auto px-3 md:mb-0 md:w-9/12 xl:w-7/12">
-              <h5 className="mb-3 text-lg font-bold">
-                Welcome to California
-              </h5>
-              <p className="text-neutral-500 dark:text-neutral-300">
-                Ut pretium ultricies dignissim. Sed sit amet
-                mi eget urna placerat vulputate. Ut
-                vulputate est non quam dignissim elementum.
-                Donec a ullamcorper diam.
+      <div className="mx-auto w-[95%] h-full py-20">
+        <div className="flex flex-col items-center justify-between lg:flex-row">
+          <div className=" ">
+            <div className="lg:max-w-xl lg:pr-5">
+              <h2 className="mb-6 max-w-lg text-5xl font-light leading-snug tracking-tight text-blue-600 sm:text-7xl sm:leading-snug">
+                We make you look
+                <span className="my-1 inline-block border-b-8 border-blue-600 bg-orange-400 px-4 font-bold text-white">
+                  different
+                </span>
+              </h2>
+              <p className="text-base text-gray-700">
+                Sed ut perspiciatis unde omnis iste natus
+                error sit voluptatem accusantium doloremque
+                it.
               </p>
             </div>
           </div>
-
-          <div className="mb-6 flex flex-wrap">
-            <div className="mb-6 ml-auto w-full shrink-0 grow-0 basis-auto px-3 md:mb-0 md:w-3/12">
-              <div
-                className="relative mb-6 overflow-hidden rounded-lg bg-cover bg-no-repeat shadow-lg dark:shadow-black/20"
-                data-te-ripple-init
-                data-te-ripple-color="light"
+          <div className="relative hidden lg:ml-32 lg:block ">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="my-6 mx-auto h-10 w-10 animate-bounce rounded-full bg-blue-50 p-2 lg:hidden"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M16 17l-4 4m0 0l-4-4m4 4V3"
+              />
+            </svg>
+            <div className="abg-orange-400 mx-auto w-fit overflow-hidden rounded-[6rem] rounded-br-none rounded-tl-none">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="absolute -left-10 -top-20 h-28 w-28 rounded-xl bg-white text-yellow-400"
+                viewBox="0 0 20 20"
+                fill="currentColor"
               >
-                <img
-                  src="https://mdbcdn.b-cdn.net/img/new/standard/city/032.jpg"
-                  className="w-full"
-                  alt="Louvre"
+                <path
+                  fill-rule="evenodd"
+                  d="M3 3a1 1 0 000 2v8a2 2 0 002 2h2.586l-1.293 1.293a1 1 0 101.414 1.414L10 15.414l2.293 2.293a1 1 0 001.414-1.414L12.414 15H15a2 2 0 002-2V5a1 1 0 100-2H3zm11.707 4.707a1 1 0 00-1.414-1.414L10 9.586 8.707 8.293a1 1 0 00-1.414 0l-2 2a1 1 0 101.414 1.414L8 10.414l1.293 1.293a1 1 0 001.414 0l4-4z"
+                  clip-rule="evenodd"
                 />
-                {/* <a href="#!"> */}
-                  <div className="absolute top-0 right-0 bottom-0 left-0 h-full w-full overflow-hidden bg-fixed opacity-0 transition duration-300 ease-in-out hover:opacity-100 bg-[hsla(0,0%,98.4%,.15)]"></div>
-                {/* </a> */}
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="absolute right-0 -bottom-20 h-28 w-28 rounded-xl bg-white text-yellow-400"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M5 2a1 1 0 011 1v1h1a1 1 0 010 2H6v1a1 1 0 01-2 0V6H3a1 1 0 010-2h1V3a1 1 0 011-1zm0 10a1 1 0 011 1v1h1a1 1 0 110 2H6v1a1 1 0 11-2 0v-1H3a1 1 0 110-2h1v-1a1 1 0 011-1zM12 2a1 1 0 01.967.744L14.146 7.2 17.5 9.134a1 1 0 010 1.732l-3.354 1.935-1.18 4.455a1 1 0 01-1.933 0L9.854 12.8 6.5 10.866a1 1 0 010-1.732l3.354-1.935 1.18-4.455A1 1 0 0112 2z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+              <div className="flex w-96 flex-wrap">
+                <div className="h-48 w-1/2 rounded-full rounded-br-none bg-red-400"></div>
+                <div className="h-48 w-1/2 rounded-[6rem] rounded-br-none rounded-tl-none bg-violet-400"></div>
+                <div className="h-48 w-1/2 rounded-full rounded-b-none rounded-br-none bg-yellow-400"></div>
+                <div className="h-48 w-1/2 rounded-full rounded-t-none rounded-br-none bg-indigo-600"></div>
               </div>
             </div>
-
-            <div className="mb-6 mr-auto w-full shrink-0 grow-0 basis-auto px-3 md:mb-0 md:w-9/12 xl:w-7/12">
-              <h5 className="mb-3 text-lg font-bold">
-                Exhibition in Paris
-              </h5>
-              <p className="text-neutral-500 dark:text-neutral-300">
-                Suspendisse in volutpat massa. Nulla
-                facilisi. Sed aliquet diam orci, nec ornare
-                metus semper sed. Integer volutpat ornare
-                erat sit amet rutrum.
-              </p>
-            </div>
           </div>
-        </section>
-        {/* <!-- Section: Design Block --> */}
+        </div>
       </div>
       {/* <!-- Container for demo purpose --> */}
     </div>
