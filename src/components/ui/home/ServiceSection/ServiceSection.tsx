@@ -28,7 +28,7 @@ const ServiceSection = () => {
             }}
           ></div>
         </div>
-        <div className="relative mt-12">
+        <div className="relative mt-12 w-[85%] mx-auto">
           <>
             <div className="grid grid-cols-12 gap-5">
               {isLoading ? (
