@@ -53,3 +53,7 @@ test@test.com <br>
 - super admin can manage everything like admin
 
 - super admin can manage admin role
+
+## Project Lighthouse Reports
+
+![project image](https://i.ibb.co/YtQ7GBt/Screenshot-2.png)
