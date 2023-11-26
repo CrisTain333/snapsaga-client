@@ -6,7 +6,7 @@ const Hero = () => {
   return (
     <div>
       <section className="relative">
-        <div className="max-w-screen-xl mx-auto px-4 py-28 gap-12 text-gray-600 md:px-8">
+        <div className="max-w-screen-xl mx-auto px-4 py-20 gap-12 text-gray-600 md:px-8">
           <div className="space-y-5 max-w-4xl mx-auto text-center">
             <h1 className="text-sm text-indigo-600 font-medium">
               Build products for everyone
