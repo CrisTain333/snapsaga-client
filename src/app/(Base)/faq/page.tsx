@@ -143,7 +143,7 @@ const AccordionItem = ({
         </div>
 
         <div className="w-full">
-          <h4 className="text-lg font-semibold text-black">
+          <h4 className="text-lg font-semibold text-white">
             {header}
           </h4>
         </div>
