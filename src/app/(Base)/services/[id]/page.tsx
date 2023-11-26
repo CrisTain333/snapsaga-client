@@ -148,7 +148,7 @@ const page = ({ params }: any) => {
           {data?.data?.map((e: any) => (
             <article
               key={e?.id}
-              className="border rounded p-2"
+              className="border rounded p-2 my-2"
             >
               <div className="flex items-center mb-4 space-x-4 ">
                 <img
