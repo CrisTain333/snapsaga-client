@@ -12,6 +12,8 @@ import { ToastAction } from "@radix-ui/react-toast";
 import Loader from "@/components/Loader/Loader";
 import OrderSuccess from "@/components/BookingSuccessMessage/BookingSuccessMessage";
 import { removeFromCart } from "@/redux/feature/cart/cart";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
 
 const page = () => {
   const searchParams = useSearchParams();
@@ -239,7 +241,7 @@ const page = () => {
       </div> */}
 
       <div className="">
-        <div className="relative mx-auto  mb-20 max-w-screen-lg overflow-hidden rounded-t-xl bg-emerald-400/60 py-32 text-center shadow-xl shadow-gray-300">
+        <div className="relative mx-auto  mb-20 max-w-screen-lg overflow-hidden rounded-t-xl bg-sky-300/40 py-32 text-center shadow-xl shadow-gray-300">
           <h1 className="mt-2 px-8 text-3xl font-bold text-white md:text-5xl">
             Book an Service
           </h1>
@@ -249,65 +251,66 @@ const page = () => {
           </p>
           <img
             className="absolute top-0 left-0 -z-10 h-full w-full object-cover"
-            src="https://images.unsplash.com/photo-1504672281656-e4981d70414b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
+            src="https://i0.wp.com/hdev.co.nz/wp-content/uploads/2014/10/wedding-395.jpg?ssl=1"
             alt=""
           />
         </div>
 
         <div className="mx-auto grid max-w-screen-lg px-6 pb-20">
           <div className="">
-            <p className="font-serif text-xl font-bold text-blue-900">
+            <p className=" text-xl font-bold ">
               Provide Booking Information
             </p>
-            <div className="mt-4 grid max-w-3xl gap-x-4 gap-y-3 sm:grid-cols-2 md:grid-cols-3">
-              <div className="relative"></div>
+            <div className="mt-4 grid max-w-3xl gap-x-4 gap-y-3 sm:grid-cols-1 md:grid-cols-2">
               <div className="relative">
-                <input
-                  className="peer hidden"
-                  id="radio_2"
-                  type="radio"
-                  name="radio"
-                />
-                <span className="absolute right-4 top-1/2 box-content block h-3 w-3 -translate-y-1/2 rounded-full border-8 border-gray-300 bg-white peer-checked:border-emerald-400"></span>
-
-                <label
-                  className="flex h-full cursor-pointer flex-col rounded-lg p-4 shadow-lg shadow-slate-100 peer-checked:bg-emerald-600 peer-checked:text-white"
-                  // for="radio_2"
-                >
-                  <span className="mt-2 font-medium">
-                    Retirement Planning
-                  </span>
-                  <span className="text-xs uppercase">
-                    1 Hour
-                  </span>
-                </label>
+                <div className="grid w-full max-w-sm items-center gap-1.5">
+                  <Label htmlFor="name">Name</Label>
+                  <Input
+                    type="text"
+                    id="name"
+                    placeholder="e.g Jhon Doe"
+                  />
+                </div>
               </div>
               <div className="relative">
-                <input
-                  className="peer hidden"
-                  id="radio_3"
-                  type="radio"
-                  name="radio"
+                <div className="grid w-full max-w-sm items-center gap-1.5">
+                  <Label htmlFor="address">Address</Label>
+                  <Input
+                    type="text"
+                    id="address"
+                    placeholder="eg: fatickchare,chattogram,bangladesh"
+                  />
+                </div>
+              </div>
+              <div className="relative">
+                <Label htmlFor="email">Email</Label>
+                <Input
+                  type="email"
+                  id="email"
+                  placeholder="snap@example.com"
                 />
-                <span className="absolute right-4 top-1/2 box-content block h-3 w-3 -translate-y-1/2 rounded-full border-8 border-gray-300 bg-white peer-checked:border-emerald-400"></span>
-
-                <label
-                  className="flex h-full cursor-pointer flex-col rounded-lg p-4 shadow-lg shadow-slate-100 peer-checked:bg-emerald-600 peer-checked:text-white"
-                  // for="radio_3"
-                >
-                  <span className="mt-2 font-medium">
-                    Investment Advice
-                  </span>
-                  <span className="text-xs uppercase">
-                    1 Hour
-                  </span>
-                </label>
+              </div>
+              <div className="relative">
+                <Label htmlFor="zip">Zip code</Label>
+                <Input
+                  type="number"
+                  id="zip"
+                  placeholder="e.g. 4035"
+                />
+              </div>
+              <div className="relative">
+                <Label htmlFor="phone">Phone number</Label>
+                <Input
+                  type="number"
+                  id="phone"
+                  placeholder="e.g. +88018365541"
+                />
               </div>
             </div>
           </div>
 
           <div className="">
-            <p className="mt-8 font-serif text-xl font-bold text-blue-900">
+            <p className="mt-8  text-xl font-bold ">
               Select Booking date
             </p>
           </div>
