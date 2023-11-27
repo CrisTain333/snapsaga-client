@@ -257,30 +257,10 @@ const page = () => {
         <div className="mx-auto grid max-w-screen-lg px-6 pb-20">
           <div className="">
             <p className="font-serif text-xl font-bold text-blue-900">
-              Select a service
+              Provide Booking Information
             </p>
             <div className="mt-4 grid max-w-3xl gap-x-4 gap-y-3 sm:grid-cols-2 md:grid-cols-3">
-              <div className="relative">
-                <input
-                  className="peer hidden"
-                  id="radio_1"
-                  type="radio"
-                  name="radio"
-                  checked
-                />
-                <span className="absolute right-4 top-1/2 box-content block h-3 w-3 -translate-y-1/2 rounded-full border-8 border-gray-300 bg-white peer-checked:border-emerald-400"></span>
-                <label
-                  className="flex h-full cursor-pointer flex-col rounded-lg p-4 shadow-lg shadow-slate-100 peer-checked:bg-emerald-600 peer-checked:text-white"
-                  // for="radio_1"
-                >
-                  <span className="mt-2- font-medium">
-                    Financial Planning
-                  </span>
-                  <span className="text-xs uppercase">
-                    1 Hour
-                  </span>
-                </label>
-              </div>
+              <div className="relative"></div>
               <div className="relative">
                 <input
                   className="peer hidden"
@@ -328,40 +308,8 @@ const page = () => {
 
           <div className="">
             <p className="mt-8 font-serif text-xl font-bold text-blue-900">
-              Select a date
+              Select Booking date
             </p>
-          </div>
-
-          <div className="">
-            <p className="mt-8 font-serif text-xl font-bold text-blue-900">
-              Select a time
-            </p>
-            <div className="mt-4 grid grid-cols-4 gap-2 lg:max-w-xl">
-              <button className="rounded-lg bg-emerald-100 px-4 py-2 font-medium text-emerald-900 active:scale-95">
-                12:00
-              </button>
-              <button className="rounded-lg bg-emerald-100 px-4 py-2 font-medium text-emerald-900 active:scale-95">
-                14:00
-              </button>
-              <button className="rounded-lg bg-emerald-700 px-4 py-2 font-medium text-white active:scale-95">
-                09:00
-              </button>
-              <button className="rounded-lg bg-emerald-100 px-4 py-2 font-medium text-emerald-900 active:scale-95">
-                12:00
-              </button>
-              <button className="rounded-lg bg-emerald-100 px-4 py-2 font-medium text-emerald-900 active:scale-95">
-                15:00
-              </button>
-              <button className="rounded-lg bg-emerald-100 px-4 py-2 font-medium text-emerald-900 active:scale-95">
-                12:00
-              </button>
-              <button className="rounded-lg bg-emerald-100 px-4 py-2 font-medium text-emerald-900 active:scale-95">
-                14:00
-              </button>
-              <button className="rounded-lg bg-emerald-100 px-4 py-2 font-medium text-emerald-900 active:scale-95">
-                12:00
-              </button>
-            </div>
           </div>
 
           <button className="mt-8 w-56 rounded-full border-8 border-emerald-500 bg-emerald-600 px-10 py-4 text-lg font-bold text-white transition hover:translate-y-1">
