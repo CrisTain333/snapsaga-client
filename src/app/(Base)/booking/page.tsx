@@ -14,8 +14,13 @@ import OrderSuccess from "@/components/BookingSuccessMessage/BookingSuccessMessa
 import { removeFromCart } from "@/redux/feature/cart/cart";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import { Calendar } from "@/components/ui/calendar";
 
 const page = () => {
+  const [date, setDate] = React.useState<Date | undefined>(
+    new Date()
+  );
+
   const searchParams = useSearchParams();
   const productId: string | null =
     searchParams.get("productId");
@@ -313,11 +318,23 @@ const page = () => {
             <p className="mt-8  text-xl font-bold ">
               Select Booking date
             </p>
+            <div className="mt-4 grid max-w-3xl gap-x-4 gap-y-3 grid-cols-12">
+              <div className="col-span-5">
+                <Calendar
+                  mode="single"
+                  selected={date}
+                  onSelect={setDate}
+                  className="rounded-md border"
+                />
+              </div>
+            </div>
           </div>
 
-          <button className="mt-8 w-56 rounded-full border-8 border-emerald-500 bg-emerald-600 px-10 py-4 text-lg font-bold text-white transition hover:translate-y-1">
-            Book Now
-          </button>
+          <div className="flex items-center ">
+            <Button className="mt-8  rounded-full bg-gradient-to-r from-[#13a0ef] to-[#97ce00]  px-3 py-3 text-lg font-bold text-white transition hover:translate-y-1">
+              Book Now
+            </Button>
+          </div>
         </div>
       </div>
       <script src="https://unpkg.com/flowbite@1.5.2/dist/datepicker.js"></script>
