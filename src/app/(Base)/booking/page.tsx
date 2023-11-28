@@ -56,7 +56,7 @@ const page = () => {
     const phone = form.phone.value;
     const zipCode = form.zipCode.value;
     const address = form.address.value;
-    const date = form.date.value;
+    // const date = form.date.value;
 
     const bookingData = {
       userId: parseInt(user?.id),
@@ -70,6 +70,8 @@ const page = () => {
         zipCode,
       },
     };
+
+    console.log(bookingData);
 
     const response: any = await createBooking(bookingData);
     const { data: responseData, error } = response;
@@ -262,79 +264,88 @@ const page = () => {
         </div>
 
         <div className="mx-auto grid max-w-screen-lg px-6 pb-20">
-          <div className="">
-            <p className=" text-xl font-bold ">
-              Provide Booking Information
-            </p>
-            <div className="mt-4 grid max-w-3xl gap-x-4 gap-y-3 sm:grid-cols-1 md:grid-cols-2">
-              <div className="relative">
-                <div className="grid w-full max-w-sm items-center gap-1.5">
-                  <Label htmlFor="name">Name</Label>
+          <form onSubmit={handleBookingSubmit}>
+            <div className="">
+              <p className=" text-xl font-bold ">
+                Provide Booking Information
+              </p>
+              <div className="mt-4 grid max-w-3xl gap-x-4 gap-y-3 sm:grid-cols-1 md:grid-cols-2">
+                <div className="relative">
+                  <div className="grid w-full max-w-sm items-center gap-1.5">
+                    <Label htmlFor="name">Name</Label>
+                    <Input
+                      type="text"
+                      id="name"
+                      name="name"
+                      placeholder="e.g Jhon Doe"
+                    />
+                  </div>
+                </div>
+                <div className="relative">
+                  <div className="grid w-full max-w-sm items-center gap-1.5">
+                    <Label htmlFor="address">Address</Label>
+                    <Input
+                      type="text"
+                      id="address"
+                      name="address"
+                      placeholder="eg: fatickchare,chattogram,bangladesh"
+                    />
+                  </div>
+                </div>
+                <div className="relative">
+                  <Label htmlFor="email">Email</Label>
                   <Input
-                    type="text"
-                    id="name"
-                    placeholder="e.g Jhon Doe"
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="snap@example.com"
+                  />
+                </div>
+                <div className="relative">
+                  <Label htmlFor="zip">Zip code</Label>
+                  <Input
+                    type="number"
+                    id="zip"
+                    name="zipCode"
+                    placeholder="e.g. 4035"
+                  />
+                </div>
+                <div className="relative">
+                  <Label htmlFor="phone">
+                    Phone number
+                  </Label>
+                  <Input
+                    type="number"
+                    id="phone"
+                    name="phone"
+                    placeholder="e.g. +88018365541"
                   />
                 </div>
               </div>
-              <div className="relative">
-                <div className="grid w-full max-w-sm items-center gap-1.5">
-                  <Label htmlFor="address">Address</Label>
-                  <Input
-                    type="text"
-                    id="address"
-                    placeholder="eg: fatickchare,chattogram,bangladesh"
+            </div>
+
+            <div className="">
+              <p className="mt-8  text-xl font-bold ">
+                Select Booking date
+              </p>
+              <div className="mt-4 grid max-w-3xl gap-x-4 gap-y-3 grid-cols-12">
+                <div className="col-span-5">
+                  <Calendar
+                    mode="single"
+                    selected={date}
+                    onSelect={setDate}
+                    className="rounded-md border"
                   />
                 </div>
               </div>
-              <div className="relative">
-                <Label htmlFor="email">Email</Label>
-                <Input
-                  type="email"
-                  id="email"
-                  placeholder="snap@example.com"
-                />
-              </div>
-              <div className="relative">
-                <Label htmlFor="zip">Zip code</Label>
-                <Input
-                  type="number"
-                  id="zip"
-                  placeholder="e.g. 4035"
-                />
-              </div>
-              <div className="relative">
-                <Label htmlFor="phone">Phone number</Label>
-                <Input
-                  type="number"
-                  id="phone"
-                  placeholder="e.g. +88018365541"
-                />
-              </div>
             </div>
-          </div>
 
-          <div className="">
-            <p className="mt-8  text-xl font-bold ">
-              Select Booking date
-            </p>
-            <div className="mt-4 grid max-w-3xl gap-x-4 gap-y-3 grid-cols-12">
-              <div className="col-span-5">
-                <Calendar
-                  mode="single"
-                  selected={date}
-                  onSelect={setDate}
-                  className="rounded-md border"
-                />
-              </div>
+            <div className="flex items-center justify-center ">
+              <Button className="mt-8   bg-gradient-to-r from-[#13a0ef] to-[#97ce00]  px-3 py-3 text-sm font-bold text-white transition hover:translate-y-1">
+                Book Now
+              </Button>
             </div>
-          </div>
-
-          <div className="flex items-center ">
-            <Button className="mt-8  rounded-full bg-gradient-to-r from-[#13a0ef] to-[#97ce00]  px-3 py-3 text-lg font-bold text-white transition hover:translate-y-1">
-              Book Now
-            </Button>
-          </div>
+          </form>
         </div>
       </div>
       <script src="https://unpkg.com/flowbite@1.5.2/dist/datepicker.js"></script>
